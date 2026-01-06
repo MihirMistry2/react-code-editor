@@ -5,6 +5,7 @@ import { CodeEditorProps } from '../types/index';
 
 const CodeEditor: React.FC<CodeEditorProps> = ({
     value,
+    theme,
     onChange,
 }): React.ReactElement => {
     const [content, setContent] = useState(value);
@@ -23,7 +24,11 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
                 flexDirection: 'column',
             }}
         >
-            <EditorContainer value={content} onChange={handleEditorChange} />
+            <EditorContainer
+                value={content}
+                theme={theme}
+                onChange={handleEditorChange}
+            />
         </div>
     );
 };

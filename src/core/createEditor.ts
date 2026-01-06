@@ -4,13 +4,20 @@ import { basicSetup } from 'codemirror';
 
 import jsonLanguage from '../languages/json';
 import { CreateEditorOptions } from '../types/index';
+import { getThemeExtension } from '../themes';
 
-const createEditor = ({ value, parent, onChange }: CreateEditorOptions) => {
+const createEditor = ({
+    value,
+    parent,
+    theme,
+    onChange,
+}: CreateEditorOptions) => {
     const state = EditorState.create({
         doc: value,
         extensions: [
             basicSetup,
             jsonLanguage(),
+            getThemeExtension(theme),
             EditorView.updateListener.of((update) => {
                 if (update.docChanged) {
                     onChange?.(update.state.doc.toString());
