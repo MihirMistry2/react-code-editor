@@ -1,4 +1,9 @@
-export type ThemeName = 'light' | 'dark';
+export type ThemeName =
+    | 'light'
+    | 'dark'
+    | 'ayu_light'
+    | 'clouds_light'
+    | 'espresso_light';
 
 export interface CreateEditorOptions {
     value: string;
