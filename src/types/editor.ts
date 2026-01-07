@@ -3,7 +3,11 @@ export type ThemeName =
     | 'dark'
     | 'ayu_light'
     | 'clouds_light'
-    | 'espresso_light';
+    | 'espresso_light'
+    | 'noctis_lilac_light'
+    | 'rose_pine_dawn_light'
+    | 'smoothy_light'
+    | 'tomorrow_light';
 
 export interface CreateEditorOptions {
     value: string;
