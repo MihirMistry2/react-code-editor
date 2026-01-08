@@ -1,3 +1,9 @@
+/**
+ * Theme inspired by Thememirror
+ * https://github.com/vadimdemedes/thememirror
+ * MIT License
+ */
+
 import { EditorView } from '@codemirror/view';
 import { HighlightStyle } from '@codemirror/language';
 import { tags } from '@lezer/highlight';
