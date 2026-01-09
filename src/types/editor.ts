@@ -7,7 +7,11 @@ export type ThemeName =
     | 'noctis_lilac_light'
     | 'rose_pine_dawn_light'
     | 'smoothy_light'
-    | 'tomorrow_light';
+    | 'tomorrow_light'
+    | 'barf_dark'
+    | 'cobalt_dark'
+    | 'cool_glow_dark'
+    | 'dracula_dark';
 
 export interface CreateEditorOptions {
     value: string;
