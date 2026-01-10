@@ -1,12 +1,24 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CodeEditor } from 'react-code-editor';
 
+import { DUMMY_DATA } from '../constants';
+
 const App = () => {
-    const [code, setCode] = useState('{\n  "hello": "world"\n}');
+    const json = useMemo(
+        () => JSON.stringify(DUMMY_DATA, null, 4),
+        [DUMMY_DATA]
+    );
+    const [code, setCode] = useState(json);
 
     return (
-        <div style={{ height: '100vh', padding: '16px' }}>
-            <CodeEditor value={code} onChange={setCode} />
+        <div className="page">
+            <section className="main">
+                <CodeEditor
+                    value={json}
+                    theme="dracula_dark"
+                    onChange={setCode}
+                />
+            </section>
         </div>
     );
 };
