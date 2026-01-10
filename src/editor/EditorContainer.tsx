@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { EditorView } from '@codemirror/view';
 
 import createEditor from '../core/createEditor';
-import { EditorContainerProps } from '../types/index';
+import { EditorContainerProps } from '../types';
 
 const EditorContainer = ({ value, theme, onChange }: EditorContainerProps) => {
     const editorRef = useRef<HTMLDivElement | null>(null);
@@ -41,7 +41,15 @@ const EditorContainer = ({ value, theme, onChange }: EditorContainerProps) => {
         }
     }, [value]);
 
-    return <div ref={editorRef} />;
+    return (
+        <div
+            ref={editorRef}
+            style={{
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    );
 };
 
 export default EditorContainer;

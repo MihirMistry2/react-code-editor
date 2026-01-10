@@ -3,7 +3,7 @@ import { EditorView } from '@codemirror/view';
 import { basicSetup } from 'codemirror';
 
 import jsonLanguage from '../languages/json';
-import { CreateEditorOptions } from '../types/index';
+import { CreateEditorOptions } from '../types';
 import { getThemeExtension } from '../themes';
 
 const createEditor = ({

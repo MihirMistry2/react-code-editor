@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import EditorContainer from './EditorContainer';
-import { CodeEditorProps } from '../types/index';
+import { CodeEditorProps } from '../types';
 
 const CodeEditor: React.FC<CodeEditorProps> = ({
     value,
@@ -18,10 +18,10 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
     return (
         <div
             style={{
+                width: '100%',
                 height: '100%',
-                minHeight: '300px',
-                display: 'flex',
-                flexDirection: 'column',
+                position: 'relative',
+                overflow: 'hidden',
             }}
         >
             <EditorContainer
