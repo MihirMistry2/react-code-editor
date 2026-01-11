@@ -41,15 +41,7 @@ const EditorContainer = ({ value, theme, onChange }: EditorContainerProps) => {
         }
     }, [value]);
 
-    return (
-        <div
-            ref={editorRef}
-            style={{
-                width: '100%',
-                height: '100%',
-            }}
-        />
-    );
+    return <div ref={editorRef} className="cm-editor-container" />;
 };
 
 export default EditorContainer;

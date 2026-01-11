@@ -16,20 +16,11 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
     };
 
     return (
-        <div
-            style={{
-                width: '100%',
-                height: '100%',
-                position: 'relative',
-                overflow: 'hidden',
-            }}
-        >
-            <EditorContainer
-                value={content}
-                theme={theme}
-                onChange={handleEditorChange}
-            />
-        </div>
+        <EditorContainer
+            value={content}
+            theme={theme}
+            onChange={handleEditorChange}
+        />
     );
 };
 
