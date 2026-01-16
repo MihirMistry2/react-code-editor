@@ -31,7 +31,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    padding: clamp(16px, 3vw, 32px);
     background-color: #ffffff;
     border: 1px solid #d0d5dd;
     border-radius: 14px;
