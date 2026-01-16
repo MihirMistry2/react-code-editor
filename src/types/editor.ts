@@ -17,12 +17,14 @@ export interface CreateEditorOptions {
     value: string;
     parent: HTMLElement;
     theme?: ThemeName;
+    readOnly?: boolean;
     onChange?: (value: string) => void;
 }
 
 export interface EditorContainerProps {
     value: string;
     theme?: ThemeName;
+    readOnly?: boolean;
     onChange?: (value: string) => void;
 }
 

@@ -6,6 +6,7 @@ import { CodeEditorProps } from '../types';
 const CodeEditor: React.FC<CodeEditorProps> = ({
     value,
     theme,
+    readOnly,
     onChange,
 }): React.ReactElement => {
     const [content, setContent] = useState(value);
@@ -19,6 +20,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         <EditorContainer
             value={content}
             theme={theme}
+            readOnly={readOnly}
             onChange={handleEditorChange}
         />
     );

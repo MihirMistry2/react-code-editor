@@ -4,7 +4,12 @@ import { EditorView } from '@codemirror/view';
 import createEditor from '../core/createEditor';
 import { EditorContainerProps } from '../types';
 
-const EditorContainer = ({ value, theme, onChange }: EditorContainerProps) => {
+const EditorContainer = ({
+    value,
+    theme,
+    readOnly,
+    onChange,
+}: EditorContainerProps) => {
     const editorRef = useRef<HTMLDivElement | null>(null);
     const viewRef = useRef<EditorView | null>(null);
 
@@ -16,6 +21,7 @@ const EditorContainer = ({ value, theme, onChange }: EditorContainerProps) => {
             value,
             parent: editor,
             theme,
+            readOnly,
             onChange,
         });
 
