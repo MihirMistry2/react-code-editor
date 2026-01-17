@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-import EditorContainer from './EditorContainer';
+import { EditorContainer } from './';
 import { CodeEditorProps } from '../types';
 
-const CodeEditor: React.FC<CodeEditorProps> = ({
+export const CodeEditor: React.FC<CodeEditorProps> = ({
     value,
     theme,
     readOnly,
@@ -25,5 +25,3 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         />
     );
 };
-
-export default CodeEditor;

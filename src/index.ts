@@ -1,2 +1,2 @@
-export { default as CodeEditor } from './editor/CodeEditor';
+export { CodeEditor } from './ui';
 export type * from './types/index';
