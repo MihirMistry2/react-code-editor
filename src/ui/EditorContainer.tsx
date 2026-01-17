@@ -4,7 +4,7 @@ import { EditorView } from '@codemirror/view';
 import createEditor from '../core/createEditor';
 import { EditorContainerProps } from '../types';
 
-const EditorContainer = ({
+export const EditorContainer = ({
     value,
     theme,
     readOnly,
@@ -49,5 +49,3 @@ const EditorContainer = ({
 
     return <div ref={editorRef} className="cm-editor-container" />;
 };
-
-export default EditorContainer;
