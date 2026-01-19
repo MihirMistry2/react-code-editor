@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { EditorView } from '@codemirror/view';
 
-import createEditor from '../core/createEditor';
+import { createEditor } from '../core/';
 import { EditorContainerProps } from '../types';
 
 export const EditorContainer = ({
@@ -9,15 +8,15 @@ export const EditorContainer = ({
     theme,
     readOnly,
     onChange,
+    controller,
 }: EditorContainerProps) => {
     const editorRef = useRef<HTMLDivElement | null>(null);
-    const viewRef = useRef<EditorView | null>(null);
 
     useEffect(() => {
         const editor = editorRef.current;
         if (!editor) return;
 
-        viewRef.current = createEditor({
+        const view = createEditor({
             value,
             parent: editor,
             theme,
@@ -25,14 +24,16 @@ export const EditorContainer = ({
             onChange,
         });
 
+        controller.setView(view);
+
         return () => {
-            viewRef.current?.destroy();
-            viewRef.current = null;
+            controller.setView(null as any);
+            view.destroy();
         };
     }, []);
 
     useEffect(() => {
-        const view = viewRef.current;
+        const view = controller.getView();
         if (!view) return;
 
         const currentValue = view.state.doc.toString();
@@ -47,5 +48,5 @@ export const EditorContainer = ({
         }
     }, [value]);
 
-    return <div ref={editorRef} className="cm-editor-container" />;
+    return <div className="cm-editor-container" ref={editorRef} />;
 };
