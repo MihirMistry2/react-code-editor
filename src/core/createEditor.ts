@@ -3,12 +3,12 @@ import { EditorView } from '@codemirror/view';
 import { basicSetup } from 'codemirror';
 
 import jsonLanguage from '../languages/json';
-import readOnlyExtension from '../extensions/readOnly';
+import { readOnlyExtension } from '../extensions/';
 
 import { CreateEditorOptions } from '../types';
 import { getThemeExtension } from '../themes';
 
-const createEditor = ({
+export const createEditor = ({
     value,
     parent,
     theme,
@@ -35,5 +35,3 @@ const createEditor = ({
         parent,
     });
 };
-
-export default createEditor;

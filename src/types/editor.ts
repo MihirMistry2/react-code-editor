@@ -1,3 +1,5 @@
+import { EditorView } from 'codemirror';
+
 export type ThemeName =
     | 'light'
     | 'dark'
@@ -25,7 +27,20 @@ export interface EditorContainerProps {
     value: string;
     theme?: ThemeName;
     readOnly?: boolean;
+    controller: any;
     onChange?: (value: string) => void;
 }
 
-export interface CodeEditorProps extends EditorContainerProps {}
+export interface CodeEditorProps {
+    value: string;
+    theme?: ThemeName;
+    readOnly?: boolean;
+    onChange?: (value: string) => void;
+    onReady?: (controller: EditorController) => void;
+}
+
+export interface EditorController {
+    getView(): EditorView | null;
+    setView(view: EditorView): void;
+    copy(): Promise<boolean | undefined>;
+}
