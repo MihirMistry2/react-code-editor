@@ -43,4 +43,6 @@ export interface EditorController {
     getView(): EditorView | null;
     setView(view: EditorView): void;
     copy(): Promise<boolean | undefined>;
+    foldAll(): boolean;
+    unfoldAll(): boolean;
 }
