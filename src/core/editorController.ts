@@ -1,5 +1,10 @@
 import { EditorView } from '@codemirror/view';
-import { copyToClipboard, foldAllCode, unfoldAllCode } from '../extensions';
+import {
+    copyToClipboard,
+    foldAllCode,
+    unfoldAllCode,
+    formatCode,
+} from '../extensions';
 
 import type { EditorController } from '../types';
 
@@ -21,6 +26,9 @@ export function createEditorController(): EditorController {
         },
         unfoldAll() {
             return unfoldAllCode(view);
+        },
+        format(formatter) {
+            return formatCode(view, formatter);
         },
     };
 }

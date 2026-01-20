@@ -45,4 +45,5 @@ export interface EditorController {
     copy(): Promise<boolean | undefined>;
     foldAll(): boolean;
     unfoldAll(): boolean;
+    format(formatter: (code: string) => string): boolean;
 }
