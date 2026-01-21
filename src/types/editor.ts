@@ -15,30 +15,6 @@ export type ThemeName =
     | 'cool_glow_dark'
     | 'dracula_dark';
 
-export interface CreateEditorOptions {
-    value: string;
-    parent: HTMLElement;
-    theme?: ThemeName;
-    readOnly?: boolean;
-    onChange?: (value: string) => void;
-}
-
-export interface EditorContainerProps {
-    value: string;
-    theme?: ThemeName;
-    readOnly?: boolean;
-    controller: any;
-    onChange?: (value: string) => void;
-}
-
-export interface CodeEditorProps {
-    value: string;
-    theme?: ThemeName;
-    readOnly?: boolean;
-    onChange?: (value: string) => void;
-    onReady?: (controller: EditorController) => void;
-}
-
 export interface EditorController {
     getView(): EditorView | null;
     setView(view: EditorView): void;
@@ -46,4 +22,47 @@ export interface EditorController {
     foldAll(): boolean;
     unfoldAll(): boolean;
     format(formatter: (code: string) => string): boolean;
+}
+
+export interface CreateEditorOptions {
+    parent: HTMLElement;
+    value: string;
+    theme?: ThemeName;
+    readOnly?: boolean;
+    onChange?: (value: string) => void;
+}
+
+export interface EditorContainerProps {
+    value: string;
+    controller: EditorController;
+    theme?: ThemeName;
+    readOnly?: boolean;
+    onChange?: (value: string) => void;
+}
+
+interface BaseCodeEditorProps {
+    theme?: ThemeName;
+    readOnly?: boolean;
+    onReady?: (controller: EditorController) => void;
+}
+
+interface ControlledCodeEditorProps {
+    value: string;
+    onChange: (value: string) => void;
+    defaultValue?: never;
+}
+
+interface UncontrolledCodeEditorProps {
+    defaultValue: string;
+    value?: never;
+    onChange?: never;
+}
+
+export type CodeEditorProps =
+    | (BaseCodeEditorProps & ControlledCodeEditorProps)
+    | (BaseCodeEditorProps & UncontrolledCodeEditorProps);
+
+export interface ResolvedEditorInvariant {
+    mode: 'controlled' | 'uncontrolled';
+    value: string;
 }

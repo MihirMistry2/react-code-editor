@@ -1,31 +1,34 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
-import { createEditorController } from '../core/';
+import { createEditorController, editorInvariant } from '../core/';
 import { EditorContainer } from './';
 import { CodeEditorProps } from '../types';
 
-export const CodeEditor: React.FC<CodeEditorProps> = ({
-    value,
-    theme,
-    readOnly,
-    onChange,
-    onReady,
-}): React.ReactElement => {
-    const [content, setContent] = useState(value);
+export const CodeEditor: React.FC<CodeEditorProps> = (
+    props,
+): React.ReactElement => {
+    const { theme, readOnly, onChange, onReady } = props;
+
+    const { mode, value: resolvedContent } = editorInvariant(props);
+
+    const [internalContent, setInternalContent] = useState(resolvedContent);
+
     const controller = useMemo(() => createEditorController(), []);
 
     const handleEditorChange = (value: string) => {
-        setContent(value);
+        if (mode === 'uncontrolled') {
+            setInternalContent(value);
+        }
         onChange?.(value);
     };
 
-    if (onReady) {
-        onReady(controller);
-    }
+    useEffect(() => {
+        onReady?.(controller);
+    }, [controller, onReady]);
 
     return (
         <EditorContainer
-            value={content}
+            value={mode === 'controlled' ? resolvedContent : internalContent}
             theme={theme}
             readOnly={readOnly}
             onChange={handleEditorChange}
