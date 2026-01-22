@@ -1,0 +1,1 @@
+export { jsonDiagnosticsExtension } from './jsonDiagnostics';

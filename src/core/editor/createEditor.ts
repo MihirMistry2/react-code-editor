@@ -7,6 +7,7 @@ import { readOnlyExtension } from '../extensions';
 
 import { CreateEditorOptions } from '../../types';
 import { getThemeExtension } from '../themes';
+import { jsonDiagnosticsExtension } from '../diagnostics';
 
 export const createEditor = ({
     value,
@@ -20,6 +21,7 @@ export const createEditor = ({
         extensions: [
             basicSetup,
             jsonLanguage(),
+            jsonDiagnosticsExtension(),
             getThemeExtension(theme),
             readOnlyExtension(readOnly),
             EditorView.updateListener.of((update) => {
