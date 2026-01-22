@@ -23,7 +23,8 @@
         "@codemirror/lang-json": "^6.0.2",
         "@codemirror/state": "^6.5.3",
         "@codemirror/view": "^6.39.8",
-        "codemirror": "^6.0.2"
+        "codemirror": "^6.0.2",
+        "codemirror-json-schema": "^0.8.1"
     },
     "devDependencies": {
         "@eslint/js": "^9.17.0",

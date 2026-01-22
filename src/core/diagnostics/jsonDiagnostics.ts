@@ -1,45 +1,94 @@
 import { Extension } from '@codemirror/state';
-import { linter, Diagnostic } from '@codemirror/lint';
-import { EditorView } from '@codemirror/view';
+import { EditorView, hoverTooltip } from '@codemirror/view';
+import { linter, lintGutter, Diagnostic } from '@codemirror/lint';
+import {
+    autocompletion,
+    CompletionContext,
+    CompletionResult,
+} from '@codemirror/autocomplete';
+import { syntaxTree } from '@codemirror/language';
 
-const getErrorPosition = (error: SyntaxError, doc: string) => {
-    const match = error.message.match(/position (\d+)/);
-    if (!match) return null;
+import {
+    jsonSchemaLinter,
+    jsonSchemaHover,
+    jsonCompletion,
+    stateExtensions,
+} from 'codemirror-json-schema';
 
-    const pos = Number(match[1]);
-    if (Number.isNaN(pos)) return null;
+const getErrorMessage = (view: EditorView, from: number): string => {
+    const doc = view.state.doc;
+    const charBefore = from > 0 ? doc.sliceString(from - 1, from) : '';
+    const charAfter = doc.sliceString(from, from + 1);
 
-    return {
-        from: pos,
-        to: Math.min(pos + 1, doc.length),
-    };
+    if (charBefore === ',') {
+        return 'Trailing comma is not allowed in JSON';
+    }
+
+    if (charAfter === '}' || charAfter === ']') {
+        return 'Missing value before closing bracket';
+    }
+
+    if (charAfter === ':') {
+        return 'Missing value after ":"';
+    }
+
+    if (charBefore === ':') {
+        return 'Missing value after ":"';
+    }
+
+    if (!charAfter) {
+        return 'Unexpected end of JSON input';
+    }
+
+    return 'Invalid JSON syntax';
 };
 
 const jsonLinter = (view: EditorView): Diagnostic[] => {
     const diagnostics: Diagnostic[] = [];
-    const doc = view.state.doc.toString();
+    const tree = syntaxTree(view.state);
+    const docLength = view.state.doc.length;
 
-    if (!doc.trim()) return diagnostics;
+    tree.iterate({
+        enter(node) {
+            if (!node.type.isError) return;
 
-    try {
-        JSON.parse(doc);
-    } catch (error) {
-        if (error instanceof SyntaxError) {
-            const range = getErrorPosition(error, doc);
-            if (range) {
-                diagnostics.push({
-                    from: range.from,
-                    to: range.to,
-                    severity: 'error',
-                    message: error.message,
-                });
-            }
-        }
-    }
+            const from = node.from;
+            const to = Math.min(node.to, docLength);
+
+            diagnostics.push({
+                from,
+                to: from === to ? from + 1 : to,
+                severity: 'error',
+                message: getErrorMessage(view, from),
+            });
+        },
+    });
 
     return diagnostics;
 };
 
-export const jsonDiagnosticsExtension = (): Extension => {
-    return linter((view) => jsonLinter(view));
+const safeJsonCompletion = (schema: object) => {
+    const source = jsonCompletion(schema);
+
+    return (ctx: CompletionContext): CompletionResult | null => {
+        const result = source(ctx);
+        return Array.isArray(result) ? null : result;
+    };
+};
+
+export const jsonDiagnosticsExtension = (schema?: object): Extension => {
+    const extensions: Extension[] = [linter(jsonLinter), lintGutter()];
+
+    if (schema) {
+        extensions.push(
+            stateExtensions(schema),
+            linter(jsonSchemaLinter(schema)),
+            hoverTooltip(jsonSchemaHover(schema)),
+            autocompletion({
+                override: [safeJsonCompletion(schema)],
+            }),
+        );
+    }
+
+    return extensions;
 };
