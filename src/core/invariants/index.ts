@@ -1,0 +1,1 @@
+export { resolveControlledInvariant } from './controlled';

@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 
-import { createEditorController, editorInvariant } from '../core/';
+import { createEditorController } from '../core/editor';
+import { resolveControlledInvariant } from '../core/invariants';
 import { EditorContainer } from './';
 import { CodeEditorProps } from '../types';
 
@@ -9,7 +10,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = (
 ): React.ReactElement => {
     const { theme, readOnly, onChange, onReady } = props;
 
-    const { mode, value: resolvedContent } = editorInvariant(props);
+    const { mode, value: resolvedContent } = resolveControlledInvariant(props);
 
     const [internalContent, setInternalContent] = useState(resolvedContent);
 

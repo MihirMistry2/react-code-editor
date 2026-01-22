@@ -1,10 +1,10 @@
-import { CodeEditorProps, ResolvedEditorInvariant } from '../types';
+import { CodeEditorProps, ResolvedControlledInvariant } from '../../types';
 
 const __DEV__ = process.env.NODE_ENV !== 'production';
 
-export const editorInvariant = (
+export const resolveControlledInvariant = (
     props: CodeEditorProps,
-): ResolvedEditorInvariant => {
+): ResolvedControlledInvariant => {
     const { value, defaultValue } = props;
     const isControlled = value !== undefined;
 

@@ -62,7 +62,7 @@ export type CodeEditorProps =
     | (BaseCodeEditorProps & ControlledCodeEditorProps)
     | (BaseCodeEditorProps & UncontrolledCodeEditorProps);
 
-export interface ResolvedEditorInvariant {
+export interface ResolvedControlledInvariant {
     mode: 'controlled' | 'uncontrolled';
     value: string;
 }

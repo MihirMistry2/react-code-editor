@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { createEditor } from '../core/';
+import { createEditor } from '../core/editor';
 import { EditorContainerProps } from '../types';
 
 export const EditorContainer = ({
@@ -30,7 +30,7 @@ export const EditorContainer = ({
             controller.setView(null as any);
             view.destroy();
         };
-    }, []);
+    }, [theme, readOnly]);
 
     useEffect(() => {
         const view = controller.getView();

@@ -6,7 +6,7 @@ import {
     formatCode,
 } from '../extensions';
 
-import type { EditorController } from '../types';
+import type { EditorController } from '../../types';
 
 export function createEditorController(): EditorController {
     let view: EditorView | null = null;

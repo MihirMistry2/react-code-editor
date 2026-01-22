@@ -2,10 +2,10 @@ import { EditorState } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import { basicSetup } from 'codemirror';
 
-import jsonLanguage from '../languages/json';
-import { readOnlyExtension } from '../extensions/';
+import { jsonLanguage } from '../../core/languages';
+import { readOnlyExtension } from '../extensions';
 
-import { CreateEditorOptions } from '../types';
+import { CreateEditorOptions } from '../../types';
 import { getThemeExtension } from '../themes';
 
 export const createEditor = ({
