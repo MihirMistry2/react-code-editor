@@ -7,6 +7,7 @@ import {
     CompletionResult,
 } from '@codemirror/autocomplete';
 import { syntaxTree } from '@codemirror/language';
+import { JsonEditorConfig } from '../../types';
 
 import {
     jsonSchemaLinter,
@@ -76,18 +77,44 @@ const safeJsonCompletion = (schema: object) => {
     };
 };
 
-export const jsonDiagnosticsExtension = (schema?: object): Extension => {
-    const extensions: Extension[] = [linter(jsonLinter), lintGutter()];
+export const jsonDiagnosticsExtension = (
+    options: JsonEditorConfig = {},
+): Extension => {
+    const {
+        diagnostics = true,
+        gutter = true,
+        schema,
+        schemaLint = !!schema,
+        hover = !!schema,
+        autocomplete = !!schema,
+    } = options;
+    const extensions: Extension[] = [];
+
+    if (diagnostics) {
+        extensions.push(linter(jsonLinter));
+        if (gutter) {
+            extensions.push(lintGutter());
+        }
+    }
 
     if (schema) {
-        extensions.push(
-            stateExtensions(schema),
-            linter(jsonSchemaLinter(schema)),
-            hoverTooltip(jsonSchemaHover(schema)),
-            autocompletion({
-                override: [safeJsonCompletion(schema)],
-            }),
-        );
+        extensions.push(stateExtensions(schema));
+
+        if (schemaLint) {
+            extensions.push(linter(jsonSchemaLinter(schema)));
+        }
+
+        if (hover) {
+            extensions.push(hoverTooltip(jsonSchemaHover(schema)));
+        }
+
+        if (autocomplete) {
+            extensions.push(
+                autocompletion({
+                    override: [safeJsonCompletion(schema)],
+                }),
+            );
+        }
     }
 
     return extensions;

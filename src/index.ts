@@ -1,2 +1,2 @@
 export { CodeEditor } from './ui';
-export type { CodeEditorProps, ThemeName } from './types';
+export type { CodeEditorProps, EditorController, ThemeName } from './types';

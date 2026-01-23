@@ -15,6 +15,19 @@ export type ThemeName =
     | 'cool_glow_dark'
     | 'dracula_dark';
 
+export type EditorLanguage = 'json' | 'js' | 'ts' | 'html' | 'css' | 'python';
+
+export interface LanguageOptions {
+    json?: JsonEditorConfig;
+    /*
+    js?: JsEditorConfig;
+    ts?: TsEditorConfig;
+    html?: HtmlEditorConfig;
+    css?: CssEditorConfig;
+    python?: PythonEditorConfig;
+    */
+}
+
 export interface EditorController {
     getView(): EditorView | null;
     setView(view: EditorView): void;
@@ -29,6 +42,8 @@ export interface CreateEditorOptions {
     value: string;
     theme?: ThemeName;
     readOnly?: boolean;
+    language: EditorLanguage;
+    languageOptions?: LanguageOptions;
     onChange?: (value: string) => void;
 }
 
@@ -37,12 +52,16 @@ export interface EditorContainerProps {
     controller: EditorController;
     theme?: ThemeName;
     readOnly?: boolean;
+    language: EditorLanguage;
+    languageOptions?: LanguageOptions;
     onChange?: (value: string) => void;
 }
 
 interface BaseCodeEditorProps {
     theme?: ThemeName;
     readOnly?: boolean;
+    language: EditorLanguage;
+    languageOptions?: LanguageOptions;
     onReady?: (controller: EditorController) => void;
 }
 
@@ -65,4 +84,13 @@ export type CodeEditorProps =
 export interface ResolvedControlledInvariant {
     mode: 'controlled' | 'uncontrolled';
     value: string;
+}
+
+export interface JsonEditorConfig {
+    diagnostics?: boolean;
+    gutter?: boolean;
+    schema?: object;
+    schemaLint?: boolean;
+    hover?: boolean;
+    autocomplete?: boolean;
 }

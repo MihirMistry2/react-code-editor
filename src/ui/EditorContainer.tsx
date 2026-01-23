@@ -7,8 +7,10 @@ export const EditorContainer = ({
     value,
     theme,
     readOnly,
-    onChange,
+    language,
+    languageOptions,
     controller,
+    onChange,
 }: EditorContainerProps) => {
     const editorRef = useRef<HTMLDivElement | null>(null);
 
@@ -21,6 +23,8 @@ export const EditorContainer = ({
             parent: editor,
             theme,
             readOnly,
+            language,
+            languageOptions,
             onChange,
         });
 
