@@ -31,10 +31,10 @@ export const EditorContainer = ({
         controller.setView(view);
 
         return () => {
-            controller.setView(null as any);
+            controller.setView(null);
             view.destroy();
         };
-    }, [theme, readOnly]);
+    }, [theme, readOnly, language, languageOptions]);
 
     useEffect(() => {
         const view = controller.getView();

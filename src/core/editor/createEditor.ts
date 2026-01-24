@@ -3,7 +3,7 @@ import { EditorView } from '@codemirror/view';
 import { basicSetup } from 'codemirror';
 
 import { readOnlyExtension } from '../extensions';
-import { createLanguageExtensions } from '../languages';
+import { buildLanguageExtensions } from '../languages';
 
 import { CreateEditorOptions } from '../../types';
 import { getThemeExtension } from '../themes';
@@ -21,7 +21,7 @@ export const createEditor = ({
         doc: value,
         extensions: [
             basicSetup,
-            ...createLanguageExtensions(language, languageOptions),
+            ...buildLanguageExtensions(language, languageOptions),
             getThemeExtension(theme),
             readOnlyExtension(readOnly),
             EditorView.updateListener.of((update) => {

@@ -2,10 +2,10 @@ import { Extension } from '@codemirror/state';
 
 import { EditorLanguage, LanguageOptions } from '../../types';
 
-import { jsonLanguage } from './';
+import { jsonLanguage } from '.';
 import { jsonDiagnosticsExtension } from '../diagnostics';
 
-export const createLanguageExtensions = (
+export const buildLanguageExtensions = (
     language: EditorLanguage,
     options: LanguageOptions | undefined,
 ): Extension[] => {
@@ -13,7 +13,7 @@ export const createLanguageExtensions = (
         case 'json':
             return [
                 jsonLanguage(),
-                jsonDiagnosticsExtension(options?.json ?? {}),
+                jsonDiagnosticsExtension(options?.[language] ?? {}),
             ];
         default:
             return [];

@@ -68,7 +68,7 @@ const jsonLinter = (view: EditorView): Diagnostic[] => {
     return diagnostics;
 };
 
-const safeJsonCompletion = (schema: object) => {
+const safeJsonCompletion = (schema: Record<string, any>) => {
     const source = jsonCompletion(schema);
 
     return (ctx: CompletionContext): CompletionResult | null => {

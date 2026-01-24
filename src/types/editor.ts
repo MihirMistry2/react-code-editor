@@ -15,7 +15,7 @@ export type ThemeName =
     | 'cool_glow_dark'
     | 'dracula_dark';
 
-export type EditorLanguage = 'json' | 'js' | 'ts' | 'html' | 'css' | 'python';
+export type EditorLanguage = keyof LanguageOptions;
 
 export interface LanguageOptions {
     json?: JsonEditorConfig;
@@ -30,7 +30,7 @@ export interface LanguageOptions {
 
 export interface EditorController {
     getView(): EditorView | null;
-    setView(view: EditorView): void;
+    setView(view: EditorView | null): void;
     copy(): Promise<boolean | undefined>;
     foldAll(): boolean;
     unfoldAll(): boolean;
@@ -89,7 +89,7 @@ export interface ResolvedControlledInvariant {
 export interface JsonEditorConfig {
     diagnostics?: boolean;
     gutter?: boolean;
-    schema?: object;
+    schema?: Record<string, any>;
     schemaLint?: boolean;
     hover?: boolean;
     autocomplete?: boolean;

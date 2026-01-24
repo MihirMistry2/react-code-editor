@@ -1,2 +1,2 @@
 export { jsonLanguage } from './json';
-export { createLanguageExtensions } from './createExtensions';
+export { buildLanguageExtensions } from './buildExtensions';
