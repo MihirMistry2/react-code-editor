@@ -1,6 +1,7 @@
 {
-    "name": "react-code-editor",
-    "version": "0.1.0",
+    "name": "react-codemirror-editor",
+    "version": "0.1.1",
+    "private": false,
     "description": "A modular, extensible React code editor built on CodeMirror 6 with first-class JSON support.",
     "type": "module",
     "main": "dist/index.js",
@@ -42,11 +43,13 @@
     },
     "keywords": [
         "react",
-        "code-editor",
         "codemirror",
-        "json-editor",
-        "schema-validation",
-        "react-library"
+        "codemirror6",
+        "editor",
+        "code-editor",
+        "react-editor",
+        "react-codemirror",
+        "ide"
     ],
     "license": "MIT"
 }
