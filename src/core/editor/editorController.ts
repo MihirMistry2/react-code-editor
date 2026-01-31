@@ -4,6 +4,12 @@ import {
     foldAllCode,
     unfoldAllCode,
     formatCode,
+    openSearch,
+    closeSearch,
+    replace,
+    replaceAllOccurrences,
+    searchNext,
+    searchPrevious,
 } from '../extensions';
 
 import type { EditorController } from '../../types';
@@ -29,6 +35,24 @@ export function createEditorController(): EditorController {
         },
         format(formatter) {
             return formatCode(view, formatter);
+        },
+        openSearch() {
+            openSearch(view);
+        },
+        closeSearch() {
+            closeSearch(view);
+        },
+        searchNext() {
+            searchNext(view);
+        },
+        searchPrevious() {
+            searchPrevious(view);
+        },
+        replace() {
+            replace(view);
+        },
+        replaceAll() {
+            replaceAllOccurrences(view);
         },
     };
 }

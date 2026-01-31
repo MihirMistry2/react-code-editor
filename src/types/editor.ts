@@ -35,6 +35,12 @@ export interface EditorController {
     foldAll(): boolean;
     unfoldAll(): boolean;
     format(formatter: (code: string) => string): boolean;
+    openSearch(): void;
+    closeSearch(): void;
+    searchNext(): void;
+    searchPrevious(): void;
+    replace(): void;
+    replaceAll(): void;
 }
 
 export interface CreateEditorOptions {
@@ -44,6 +50,7 @@ export interface CreateEditorOptions {
     readOnly?: boolean;
     language: EditorLanguage;
     languageOptions?: LanguageOptions;
+    searchOptions?: SearchOptions;
     onChange?: (value: string) => void;
 }
 
@@ -54,6 +61,7 @@ export interface EditorContainerProps {
     readOnly?: boolean;
     language: EditorLanguage;
     languageOptions?: LanguageOptions;
+    searchOptions?: SearchOptions;
     onChange?: (value: string) => void;
 }
 
@@ -62,6 +70,7 @@ interface BaseCodeEditorProps {
     readOnly?: boolean;
     language: EditorLanguage;
     languageOptions?: LanguageOptions;
+    searchOptions?: SearchOptions;
     onReady?: (controller: EditorController) => void;
 }
 
@@ -93,4 +102,11 @@ export interface JsonEditorConfig {
     schemaLint?: boolean;
     hover?: boolean;
     autocomplete?: boolean;
+}
+
+export interface SearchOptions {
+    top?: boolean;
+    caseSensitive?: boolean;
+    regexp?: boolean;
+    wholeWord?: boolean;
 }

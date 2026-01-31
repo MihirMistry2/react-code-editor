@@ -8,8 +8,15 @@ import { CodeEditorProps } from '../types';
 export const CodeEditor: React.FC<CodeEditorProps> = (
     props,
 ): React.ReactElement => {
-    const { theme, readOnly, language, languageOptions, onChange, onReady } =
-        props;
+    const {
+        theme,
+        readOnly,
+        language,
+        languageOptions,
+        searchOptions,
+        onChange,
+        onReady,
+    } = props;
 
     const { mode, value: resolvedContent } = resolveControlledInvariant(props);
 
@@ -35,6 +42,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = (
             readOnly={readOnly}
             language={language}
             languageOptions={languageOptions}
+            searchOptions={searchOptions}
             onChange={handleEditorChange}
             controller={controller}
         />
