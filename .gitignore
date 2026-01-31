@@ -25,6 +25,3 @@ dist-ssr
 
 # Local playground for testing the library (not committed)
 /demo/
-
-# Documentation generated files
-PUBLISH_TO_NPM_STEPS.md
