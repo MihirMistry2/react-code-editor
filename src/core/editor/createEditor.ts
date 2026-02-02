@@ -15,7 +15,7 @@ export const createEditor = ({
     readOnly = false,
     language,
     languageOptions,
-    searchOptions,
+    search,
     onChange,
 }: CreateEditorOptions) => {
     const state = EditorState.create({
@@ -25,7 +25,7 @@ export const createEditor = ({
             ...buildLanguageExtensions(language, languageOptions),
             getThemeExtension(theme),
             readOnlyExtension(readOnly),
-            searchExtensions(searchOptions),
+            searchExtensions(search),
             EditorView.updateListener.of((update) => {
                 if (update.docChanged) {
                     onChange?.(update.state.doc.toString());

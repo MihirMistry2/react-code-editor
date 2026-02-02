@@ -47,13 +47,32 @@ export const replaceAllOccurrences = (view: EditorView | null | undefined) => {
     replaceAll(view);
 };
 
-export const searchExtensions = (options: SearchOptions = {}): Extension => {
+const resolveSearch = (search?: boolean | SearchOptions) => {
+    if (!search) return { enabled: false };
+
+    if (search === true) {
+        return { enabled: true };
+    }
+
+    return {
+        enabled: search.enabled ?? true,
+        ...search,
+    };
+};
+
+export const searchExtensions = (
+    searchConfig: boolean | SearchOptions = {},
+): Extension => {
+    const options = resolveSearch(searchConfig);
+
+    if (!options.enabled) return [];
+
     const {
         top = true,
         caseSensitive = false,
         regexp = false,
         wholeWord = false,
-    } = options;
+    } = options ?? {};
 
     return search({
         top,

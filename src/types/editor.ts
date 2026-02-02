@@ -50,7 +50,7 @@ export interface CreateEditorOptions {
     readOnly?: boolean;
     language: EditorLanguage;
     languageOptions?: LanguageOptions;
-    searchOptions?: SearchOptions;
+    search?: boolean | SearchOptions;
     onChange?: (value: string) => void;
 }
 
@@ -61,7 +61,7 @@ export interface EditorContainerProps {
     readOnly?: boolean;
     language: EditorLanguage;
     languageOptions?: LanguageOptions;
-    searchOptions?: SearchOptions;
+    search?: boolean | SearchOptions;
     onChange?: (value: string) => void;
 }
 
@@ -70,7 +70,7 @@ interface BaseCodeEditorProps {
     readOnly?: boolean;
     language: EditorLanguage;
     languageOptions?: LanguageOptions;
-    searchOptions?: SearchOptions;
+    search?: boolean | SearchOptions;
     onReady?: (controller: EditorController) => void;
 }
 
@@ -105,6 +105,7 @@ export interface JsonEditorConfig {
 }
 
 export interface SearchOptions {
+    enabled?: boolean;
     top?: boolean;
     caseSensitive?: boolean;
     regexp?: boolean;

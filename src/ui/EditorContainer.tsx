@@ -9,7 +9,7 @@ export const EditorContainer = ({
     readOnly,
     language,
     languageOptions,
-    searchOptions,
+    search,
     controller,
     onChange,
 }: EditorContainerProps) => {
@@ -26,7 +26,7 @@ export const EditorContainer = ({
             readOnly,
             language,
             languageOptions,
-            searchOptions,
+            search,
             onChange,
         });
 
