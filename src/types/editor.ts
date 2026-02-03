@@ -102,6 +102,7 @@ export interface JsonEditorConfig {
     schemaLint?: boolean;
     hover?: boolean;
     autocomplete?: boolean;
+    onValidationChange?: (isValid: boolean) => void;
 }
 
 export interface SearchOptions {

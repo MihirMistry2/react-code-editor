@@ -77,6 +77,22 @@ const safeJsonCompletion = (schema: Record<string, any>) => {
     };
 };
 
+const validation =
+    (
+        linterFn: (view: EditorView) => Diagnostic[],
+        onValidationChange?: (isValid: boolean) => void,
+    ) =>
+    (view: EditorView): Diagnostic[] => {
+        const diagnostics = linterFn(view);
+
+        if (onValidationChange) {
+            const isValid = diagnostics.every((d) => d.severity !== 'error');
+            onValidationChange(isValid);
+        }
+
+        return diagnostics;
+    };
+
 export const jsonDiagnosticsExtension = (
     options: JsonEditorConfig = {},
 ): Extension => {
@@ -87,11 +103,12 @@ export const jsonDiagnosticsExtension = (
         schemaLint = !!schema,
         hover = !!schema,
         autocomplete = !!schema,
+        onValidationChange,
     } = options;
     const extensions: Extension[] = [];
 
     if (diagnostics) {
-        extensions.push(linter(jsonLinter));
+        extensions.push(linter(validation(jsonLinter, onValidationChange)));
         if (gutter) {
             extensions.push(lintGutter());
         }
@@ -101,7 +118,11 @@ export const jsonDiagnosticsExtension = (
         extensions.push(stateExtensions(schema));
 
         if (schemaLint) {
-            extensions.push(linter(jsonSchemaLinter(schema)));
+            extensions.push(
+                linter(
+                    validation(jsonSchemaLinter(schema), onValidationChange),
+                ),
+            );
         }
 
         if (hover) {
