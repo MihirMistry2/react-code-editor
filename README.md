@@ -1,6 +1,6 @@
 # React Code Editor
 
-A modern, extensible **CodeMirror 6–based React code editor** featuring first-class TypeScript support, language-aware configuration, and optional diagnostics.
+A modern, extensible **CodeMirror 6–based React code editor** featuring first-class TypeScript support, language-aware configuration, optional diagnostics, and search/validation support.
 
 This library is designed to scale from a simple embedded editor to a **multi-language, schema-aware editing platform**.
 
@@ -14,6 +14,8 @@ This library is designed to scale from a simple embedded editor to a **multi-lan
 - Optional diagnostics, completion, and hover
 - JSON Schema validation support
 - Light & dark themes
+- Search & Replace support
+- Validation state callback
 - Designed for future multi-language support
 
 ---
@@ -93,10 +95,14 @@ This keeps the editor **language-agnostic** and flexible.
 - `format(formatter)`
 - `foldAll()`
 - `unfoldAll()`
+- `openSearch()`
+- `closeSearch()`
+- `findNext()`
+- `findPrev()`
+- `replace(replacement: string)`
+- `replaceAll(replacement: string)`
 
 ### 🧠 Format API (Callback-Based)
-
-#### Signature
 
 ```tsx
 format(formatter: (value: string) => string): void
@@ -127,26 +133,17 @@ function formatJson(value: string) {
   }
 }
 
-<button onClick={() => controllerRef.current?.format(formatJson)}>
-  Format
-</button>
-
-<button onClick={() => controllerRef.current?.copy()}>
-  Copy
-</button>
-
-<button onClick={() => controllerRef.current?.foldAll()}>
-  Fold All
-</button>
-
-<button onClick={() => controllerRef.current?.unfoldAll()}>
-  Unfold All
-</button>
+<button onClick={() => controllerRef.current?.format(formatJson)}>Format</button>
+<button onClick={() => controllerRef.current?.copy()}>Copy</button>
+<button onClick={() => controllerRef.current?.foldAll()}>Fold All</button>
+<button onClick={() => controllerRef.current?.unfoldAll()}>Unfold All</button>
+<button onClick={() => controllerRef.current?.openSearch()}>Search</button>
+<button onClick={() => controllerRef.current?.closeSearch()}>Close Search</button>
 ```
 
-- The editor does **not** care how formatting is done
-- You can plug **Prettier, custom logic, or server formatting**
 - Works for **any language**
+- Supports **custom formatter functions**
+- Search UI is **optional** and can be enabled via props
 
 ### Example: Prettier Integration (Concept)
 
@@ -169,6 +166,52 @@ This is a library-level design decision, not a limitation.
 
 ---
 
+## 🔍 Search & Replace
+
+The editor includes **search & replace functionality** via a controller API:
+
+- `openSearch()` – Opens the search panel
+- `closeSearch()` – Closes the search panel
+- `findNext()` – Finds the next match
+- `findPrev()` – Finds the previous match
+- `replace(replacement: string)` – Replaces the current match
+- `replaceAll(replacement: string)` – Replaces all matches
+
+You can pass **search configuration**:
+
+```tsx
+<CodeEditor
+    language="json"
+    searchOptions={{
+        top: true,
+        caseSensitive: false,
+    }}
+/>
+```
+
+---
+
+## ✅ JSON Validation State
+
+You can track JSON validity and react to changes in real-time via `onValidationChange`:
+
+```tsx
+<CodeEditor
+    language="json"
+    languageOptions={{
+        json: {
+            schema: myJsonSchema,
+            onValidationChange: (isValid) => console.log('Valid:', isValid),
+        },
+    }}
+/>
+```
+
+- `isValid` is `true` if there are no syntax or schema errors
+- Useful for enabling/disabling Save buttons or warnings in your UI
+
+---
+
 ## 🌍 Languages
 
 Languages are enabled explicitly using the `language` prop.
@@ -177,7 +220,7 @@ Languages are enabled explicitly using the `language` prop.
 
 - **JSON**
 
-The architecture is designed to support additional languages such as:
+Future support for:
 
 - JavaScript
 - TypeScript
@@ -189,8 +232,6 @@ The architecture is designed to support additional languages such as:
 ## ⚙️ Language Configuration
 
 Language-specific behavior is configured via `languageOptions`.
-
-### JSON Configuration Example
 
 ```tsx
 <CodeEditor
@@ -206,18 +247,17 @@ Language-specific behavior is configured via `languageOptions`.
 />
 ```
 
----
-
 ### JSON Options
 
-| Option         | Type      | Default                   | Description                                            |
-| -------------- | --------- | ------------------------- | ------------------------------------------------------ |
-| `schema`       | `object`  | `undefined`               | JSON Schema used for validation, completion, and hover |
-| `diagnostics`  | `boolean` | `true`                    | Enables JSON syntax diagnostics                        |
-| `gutter`       | `boolean` | `true`                    | Shows the diagnostics gutter (error markers)           |
-| `schemaLint`   | `boolean` | `true if schema provided` | Enables schema-based validation                        |
-| `hover`        | `boolean` | `true if schema provided` | Enables hover tooltips from schema                     |
-| `autocomplete` | `boolean` | `true if schema provided` | Enables schema-based autocompletion                    |
+| Option               | Type                         | Default                   | Description                                            |
+| -------------------- | ---------------------------- | ------------------------- | ------------------------------------------------------ |
+| `schema`             | `object`                     | `undefined`               | JSON Schema used for validation, completion, and hover |
+| `diagnostics`        | `boolean`                    | `true`                    | Enables JSON syntax diagnostics                        |
+| `gutter`             | `boolean`                    | `true`                    | Shows the diagnostics gutter (error markers)           |
+| `schemaLint`         | `boolean`                    | `true if schema provided` | Enables schema-based validation                        |
+| `hover`              | `boolean`                    | `true if schema provided` | Enables hover tooltips from schema                     |
+| `autocomplete`       | `boolean`                    | `true if schema provided` | Enables schema-based autocompletion                    |
+| `onValidationChange` | `(isValid: boolean) => void` | `undefined`               | Callback called whenever JSON validity changes         |
 
 > If no schema is provided, the editor still works normally with **syntax diagnostics only**.
 
@@ -282,7 +322,7 @@ To ensure a consistent height, define a height or `min-height` via CSS.
 
 - The editor always fills the container height
 - Padding, borders, and background should be applied to the container
-- This approach provides full control over responsive layouts
+- Provides full control over responsive layouts
 
 ---
 
@@ -327,7 +367,7 @@ import type { ThemeName } from 'react-codemirror-editor';
 
 - Built on **CodeMirror 6**
 - Language features are isolated and composable
-- Diagnostics, completion, and hover are opt-in
+- Diagnostics, completion, hover, and search are opt-in
 - Clean separation between core editor, languages, and UI
 - Designed for long-term multi-language expansion
 
