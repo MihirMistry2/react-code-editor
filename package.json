@@ -1,6 +1,6 @@
 {
     "name": "react-codemirror-editor",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "private": false,
     "description": "A modular, extensible React code editor built on CodeMirror 6 with first-class JSON support.",
     "type": "module",
