@@ -3,7 +3,7 @@ import { Extension } from '@codemirror/state';
 import { EditorLanguage, LanguageOptions } from '../../types';
 
 import { jsonLanguage } from '.';
-import { jsonDiagnosticsExtension } from '../diagnostics';
+import { jsonDiagnosticsExtension } from '../diagnostics/json';
 
 export const buildLanguageExtensions = (
     language: EditorLanguage,
