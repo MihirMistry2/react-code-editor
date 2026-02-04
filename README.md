@@ -1,3 +1,7 @@
+![npm](https://img.shields.io/npm/v/react-code-editor)
+![downloads](https://img.shields.io/npm/dw/react-code-editor)
+![license](https://img.shields.io/npm/l/react-code-editor)
+
 # React Code Editor
 
 A modern, extensible **CodeMirror 6–based React code editor** featuring first-class TypeScript support, language-aware configuration, optional diagnostics, and search/validation support.
