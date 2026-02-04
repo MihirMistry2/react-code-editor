@@ -11,6 +11,14 @@
         "dist"
     ],
     "sideEffects": false,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mihirmistry2/react-code-editor.git"
+    },
+    "homepage": "https://github.com/mihirmistry2/react-code-editor#readme",
+    "bugs": {
+        "url": "https://github.com/mihirmistry2/react-code-editor/issues"
+    },
     "scripts": {
         "build": "tsc",
         "lint": "eslint .",
