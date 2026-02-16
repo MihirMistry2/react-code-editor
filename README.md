@@ -195,27 +195,6 @@ You can pass **search configuration**:
 
 ---
 
-## ✅ JSON Validation State
-
-You can track JSON validity and react to changes in real-time via `onValidationChange`:
-
-```tsx
-<CodeEditor
-    language="json"
-    languageOptions={{
-        json: {
-            schema: myJsonSchema,
-            onValidationChange: (isValid) => console.log('Valid:', isValid),
-        },
-    }}
-/>
-```
-
-- `isValid` is `true` if there are no syntax or schema errors
-- Useful for enabling/disabling Save buttons or warnings in your UI
-
----
-
 ## 🌍 Languages
 
 Languages are enabled explicitly using the `language` prop.
