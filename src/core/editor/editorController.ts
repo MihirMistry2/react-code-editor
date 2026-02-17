@@ -11,6 +11,7 @@ import {
     searchNext,
     searchPrevious,
 } from '../extensions';
+import { jsonValidationState } from '../diagnostics/json';
 
 import type { EditorController } from '../../types';
 
@@ -53,6 +54,17 @@ export function createEditorController(): EditorController {
         },
         replaceAll() {
             replaceAllOccurrences(view);
+        },
+        getValidationState() {
+            if (!view) return null;
+
+            return (
+                view.state.field(jsonValidationState, false) ?? {
+                    is_valid: true,
+                    error_count: 0,
+                    warning_count: 0,
+                }
+            );
         },
     };
 }

@@ -9,7 +9,7 @@ import {
 } from 'codemirror-json-schema';
 
 import { jsonLinter } from './jsonLinter';
-import { safeJsonCompletion } from './safeJsonCompletion';
+import { safeJsonCompletion, jsonValidationLinter } from './';
 import { JsonEditorConfig } from '../../../types';
 
 export const jsonDiagnosticsExtension = (
@@ -26,7 +26,8 @@ export const jsonDiagnosticsExtension = (
     const extensions: Extension[] = [];
 
     if (diagnostics) {
-        extensions.push(linter(jsonLinter));
+        extensions.push(linter(jsonValidationLinter(jsonLinter)));
+
         if (gutter) {
             extensions.push(lintGutter());
         }
@@ -36,7 +37,9 @@ export const jsonDiagnosticsExtension = (
         extensions.push(stateExtensions(schema));
 
         if (schemaLint) {
-            extensions.push(linter(jsonSchemaLinter(schema)));
+            extensions.push(
+                linter(jsonValidationLinter(jsonSchemaLinter(schema))),
+            );
         }
 
         if (hover) {
