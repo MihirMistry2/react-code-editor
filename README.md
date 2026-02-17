@@ -1,10 +1,10 @@
+# React Code Editor
+
 ![npm](https://img.shields.io/npm/v/react-code-editor)
 ![downloads](https://img.shields.io/npm/dw/react-code-editor)
 ![license](https://img.shields.io/npm/l/react-code-editor)
 
-# React Code Editor
-
-A modern, extensible **CodeMirror 6–based React code editor** featuring first-class TypeScript support, language-aware configuration, optional diagnostics, and search/validation support.
+A modern, extensible **CodeMirror 6–based React code editor** featuring first-class TypeScript support, language-aware configuration, optional diagnostics, search, and validation support.
 
 This library is designed to scale from a simple embedded editor to a **multi-language, schema-aware editing platform**.
 
@@ -105,6 +105,7 @@ This keeps the editor **language-agnostic** and flexible.
 - `findPrev()`
 - `replace(replacement: string)`
 - `replaceAll(replacement: string)`
+- `getValidationState()`
 
 ### 🧠 Format API (Callback-Based)
 
@@ -157,9 +158,7 @@ controllerRef.current?.format((code) =>
 );
 ```
 
----
-
-## 📋 Why Callback-Based Formatting?
+### 📋 Why Callback-Based Formatting?
 
 - Keeps core editor **small**
 - Avoids hard dependency on Prettier
@@ -168,9 +167,7 @@ controllerRef.current?.format((code) =>
 
 This is a library-level design decision, not a limitation.
 
----
-
-## 🔍 Search & Replace
+### 🔍 Search & Replace
 
 The editor includes **search & replace functionality** via a controller API:
 
@@ -191,6 +188,20 @@ You can pass **search configuration**:
         caseSensitive: false,
     }}
 />
+```
+
+### ✅ Validation State
+
+```ts
+const state: {
+    is_valid: boolean;
+    error_count: number;
+    warning_count: number;
+} | null = controllerRef.current?.getValidationState();
+
+if (state) {
+    const { is_valid, error_count, warning_count } = state;
+}
 ```
 
 ---
