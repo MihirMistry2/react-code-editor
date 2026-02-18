@@ -41,10 +41,10 @@ export interface EditorController {
     searchPrevious(): void;
     replace(): void;
     replaceAll(): void;
-    getValidationState(): {
-        is_valid: boolean;
-        error_count: number;
-        warning_count: number;
+    getValidation(): {
+        isValid: boolean;
+        errorCount: number;
+        warningCount: number;
     } | null;
 }
 

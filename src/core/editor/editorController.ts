@@ -55,14 +55,14 @@ export function createEditorController(): EditorController {
         replaceAll() {
             replaceAllOccurrences(view);
         },
-        getValidationState() {
+        getValidation() {
             if (!view) return null;
 
             return (
                 view.state.field(jsonValidationState, false) ?? {
-                    is_valid: true,
-                    error_count: 0,
-                    warning_count: 0,
+                    isValid: true,
+                    errorCount: 0,
+                    warningCount: 0,
                 }
             );
         },

@@ -2,9 +2,9 @@ import { StateEffect, StateField } from '@codemirror/state';
 import type { Diagnostic } from '@codemirror/lint';
 
 export interface ValidationState {
-    is_valid: boolean;
-    error_count: number;
-    warning_count: number;
+    isValid: boolean;
+    errorCount: number;
+    warningCount: number;
 }
 
 export const setValidationState = StateEffect.define<ValidationState>();
@@ -12,18 +12,18 @@ export const setValidationState = StateEffect.define<ValidationState>();
 export function computeValidationState(
     diagnostics: readonly Diagnostic[],
 ): ValidationState {
-    let error_count = 0;
-    let warning_count = 0;
+    let errorCount = 0;
+    let warningCount = 0;
 
     for (const d of diagnostics) {
-        if (d.severity === 'error') error_count++;
-        else if (d.severity === 'warning') warning_count++;
+        if (d.severity === 'error') errorCount++;
+        else if (d.severity === 'warning') warningCount++;
     }
 
     return {
-        is_valid: error_count === 0,
-        error_count,
-        warning_count,
+        isValid: errorCount === 0,
+        errorCount,
+        warningCount,
     };
 }
 
@@ -34,9 +34,9 @@ export function dispatchValidationState(diagnostics: readonly Diagnostic[]) {
 export const jsonValidationState = StateField.define<ValidationState>({
     create() {
         return {
-            is_valid: true,
-            error_count: 0,
-            warning_count: 0,
+            isValid: true,
+            errorCount: 0,
+            warningCount: 0,
         };
     },
     update(value, tr) {
