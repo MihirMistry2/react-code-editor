@@ -105,7 +105,7 @@ This keeps the editor **language-agnostic** and flexible.
 - `findPrev()`
 - `replace(replacement: string)`
 - `replaceAll(replacement: string)`
-- `getValidationState()`
+- `getValidation()`
 
 ### 🧠 Format API (Callback-Based)
 
@@ -194,13 +194,13 @@ You can pass **search configuration**:
 
 ```ts
 const state: {
-    is_valid: boolean;
-    error_count: number;
-    warning_count: number;
-} | null = controllerRef.current?.getValidationState();
+    isValid: boolean;
+    errorCount: number;
+    warningCount: number;
+} | null = controllerRef.current?.getValidation();
 
 if (state) {
-    const { is_valid, error_count, warning_count } = state;
+    const { isValid, errorCount, warningCount } = state;
 }
 ```
 
