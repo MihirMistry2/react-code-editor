@@ -41,11 +41,7 @@ export interface EditorController {
     searchPrevious(): void;
     replace(): void;
     replaceAll(): void;
-    getValidation(): {
-        isValid: boolean;
-        errorCount: number;
-        warningCount: number;
-    } | null;
+    getValidation(): ValidationState | null;
 }
 
 export interface CreateEditorOptions {
@@ -115,4 +111,10 @@ export interface SearchOptions {
     caseSensitive?: boolean;
     regexp?: boolean;
     wholeWord?: boolean;
+}
+
+export interface ValidationState {
+    isValid: boolean;
+    errorCount: number;
+    warningCount: number;
 }

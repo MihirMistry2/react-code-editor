@@ -1,11 +1,7 @@
 import { StateEffect, StateField } from '@codemirror/state';
 import type { Diagnostic } from '@codemirror/lint';
 
-export interface ValidationState {
-    isValid: boolean;
-    errorCount: number;
-    warningCount: number;
-}
+import { ValidationState } from '../../../types/';
 
 export const setValidationState = StateEffect.define<ValidationState>();
 
