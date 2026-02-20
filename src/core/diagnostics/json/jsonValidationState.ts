@@ -1,13 +1,13 @@
 import { StateEffect, StateField } from '@codemirror/state';
 import type { Diagnostic } from '@codemirror/lint';
 
-import { ValidationState } from '../../../types/';
+import { ValidationStats, ValidationState } from '../../../types/';
 
 export const setValidationState = StateEffect.define<ValidationState>();
 
 export function computeValidationState(
     diagnostics: readonly Diagnostic[],
-): ValidationState {
+): ValidationStats {
     let errorCount = 0;
     let warningCount = 0;
 
@@ -24,15 +24,21 @@ export function computeValidationState(
 }
 
 export function dispatchValidationState(diagnostics: readonly Diagnostic[]) {
-    return setValidationState.of(computeValidationState(diagnostics));
+    return setValidationState.of({
+        diagnostics: diagnostics as Diagnostic[],
+        stats: computeValidationState(diagnostics),
+    });
 }
 
 export const jsonValidationState = StateField.define<ValidationState>({
     create() {
         return {
-            isValid: true,
-            errorCount: 0,
-            warningCount: 0,
+            diagnostics: [],
+            stats: {
+                isValid: true,
+                errorCount: 0,
+                warningCount: 0,
+            },
         };
     },
     update(value, tr) {

@@ -1,4 +1,5 @@
 import { EditorView } from 'codemirror';
+import type { Diagnostic } from '@codemirror/lint';
 
 export type ThemeName =
     | 'light'
@@ -41,7 +42,8 @@ export interface EditorController {
     searchPrevious(): void;
     replace(): void;
     replaceAll(): void;
-    getValidation(): ValidationState | null;
+    getValidation(): ValidationStats | null;
+    getDiagnostics(): Diagnostic[] | null;
 }
 
 export interface CreateEditorOptions {
@@ -113,8 +115,13 @@ export interface SearchOptions {
     wholeWord?: boolean;
 }
 
-export interface ValidationState {
+export interface ValidationStats {
     isValid: boolean;
     errorCount: number;
     warningCount: number;
+}
+
+export interface ValidationState {
+    diagnostics: Diagnostic[];
+    stats: ValidationStats;
 }

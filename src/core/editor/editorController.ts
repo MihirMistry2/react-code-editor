@@ -59,11 +59,18 @@ export function createEditorController(): EditorController {
             if (!view) return null;
 
             return (
-                view.state.field(jsonValidationState, false) ?? {
+                view.state.field(jsonValidationState, false)?.stats ?? {
                     isValid: true,
                     errorCount: 0,
                     warningCount: 0,
                 }
+            );
+        },
+        getDiagnostics() {
+            if (!view) return null;
+
+            return (
+                view.state.field(jsonValidationState, false)?.diagnostics ?? []
             );
         },
     };
