@@ -70,7 +70,10 @@ export function createEditorController(): EditorController {
             if (!view) return null;
 
             return (
-                view.state.field(jsonValidationState, false)?.diagnostics ?? []
+                view.state.field(jsonValidationState, false)?.diagnostics ?? {
+                    errors: [],
+                    warnings: [],
+                }
             );
         },
     };

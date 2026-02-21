@@ -42,7 +42,7 @@ export interface EditorController {
     replace(): void;
     replaceAll(): void;
     getValidation(): ValidationStats | null;
-    getDiagnostics(): ValidationDiagnostic[] | null;
+    getDiagnostics(): ValidationDiagnostic | null;
 }
 
 export interface CreateEditorOptions {
@@ -120,14 +120,18 @@ export interface ValidationStats {
     warningCount: number;
 }
 
-export interface ValidationDiagnostic {
+export interface DiagnosticEntry {
     line: number;
     column: number;
-    severity: 'error' | 'warning';
     message: string;
 }
 
+export interface ValidationDiagnostic {
+    errors: DiagnosticEntry[];
+    warnings: DiagnosticEntry[];
+}
+
 export interface ValidationState {
-    diagnostics: ValidationDiagnostic[];
+    diagnostics: ValidationDiagnostic;
     stats: ValidationStats;
 }

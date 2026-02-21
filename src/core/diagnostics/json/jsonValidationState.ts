@@ -1,7 +1,7 @@
 import { EditorState, StateEffect, StateField } from '@codemirror/state';
 import type { Diagnostic } from '@codemirror/lint';
 
-import { ValidationDiagnostic, ValidationState } from '../../../types/';
+import { DiagnosticEntry, ValidationState } from '../../../types/';
 
 export const setValidationState = StateEffect.define<ValidationState>();
 
@@ -11,26 +11,34 @@ export const computeValidationState = (
 ): ValidationState => {
     let errorCount = 0;
     let warningCount = 0;
-    const transformedDiagnostics: ValidationDiagnostic[] = [];
+    const errors: DiagnosticEntry[] = [];
+    const warnings: DiagnosticEntry[] = [];
 
     for (const d of diagnostics) {
-        if (d.severity === 'error') errorCount++;
-        else if (d.severity === 'warning') warningCount++;
+        const line = state.doc.lineAt(d.from);
+        const diagnosticEntry = {
+            line: line.number,
+            column: d.from - line.from + 1,
+            message: d.message,
+        };
 
-        if (['error', 'warning'].includes(d.severity)) {
-            const line = state.doc.lineAt(d.from);
-
-            transformedDiagnostics.push({
-                line: line.number,
-                column: d.from - line.from + 1,
-                severity: d.severity as 'error' | 'warning',
-                message: d.message,
-            });
+        switch (d.severity) {
+            case 'error':
+                errorCount++;
+                errors.push(diagnosticEntry);
+                break;
+            case 'warning':
+                warningCount++;
+                warnings.push(diagnosticEntry);
+                break;
         }
     }
 
     return {
-        diagnostics: transformedDiagnostics,
+        diagnostics: {
+            errors,
+            warnings,
+        },
         stats: {
             isValid: errorCount === 0,
             errorCount,
@@ -49,7 +57,10 @@ export function dispatchValidationState(
 export const jsonValidationState = StateField.define<ValidationState>({
     create() {
         return {
-            diagnostics: [],
+            diagnostics: {
+                errors: [],
+                warnings: [],
+            },
             stats: {
                 isValid: true,
                 errorCount: 0,
