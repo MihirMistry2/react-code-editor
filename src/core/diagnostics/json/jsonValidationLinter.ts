@@ -9,7 +9,7 @@ export const jsonValidationLinter =
         const diagnostics = linterFn(view);
 
         view.dispatch({
-            effects: dispatchValidationState(diagnostics),
+            effects: dispatchValidationState(view.state, diagnostics),
         });
 
         return diagnostics;

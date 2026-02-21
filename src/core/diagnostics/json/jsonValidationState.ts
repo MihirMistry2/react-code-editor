@@ -1,33 +1,49 @@
-import { StateEffect, StateField } from '@codemirror/state';
+import { EditorState, StateEffect, StateField } from '@codemirror/state';
 import type { Diagnostic } from '@codemirror/lint';
 
-import { ValidationStats, ValidationState } from '../../../types/';
+import { ValidationDiagnostic, ValidationState } from '../../../types/';
 
 export const setValidationState = StateEffect.define<ValidationState>();
 
-export function computeValidationState(
+export const computeValidationState = (
+    state: EditorState,
     diagnostics: readonly Diagnostic[],
-): ValidationStats {
+): ValidationState => {
     let errorCount = 0;
     let warningCount = 0;
+    const transformedDiagnostics: ValidationDiagnostic[] = [];
 
     for (const d of diagnostics) {
         if (d.severity === 'error') errorCount++;
         else if (d.severity === 'warning') warningCount++;
+
+        if (['error', 'warning'].includes(d.severity)) {
+            const line = state.doc.lineAt(d.from);
+
+            transformedDiagnostics.push({
+                line: line.number,
+                column: d.from - line.from + 1,
+                severity: d.severity as 'error' | 'warning',
+                message: d.message,
+            });
+        }
     }
 
     return {
-        isValid: errorCount === 0,
-        errorCount,
-        warningCount,
+        diagnostics: transformedDiagnostics,
+        stats: {
+            isValid: errorCount === 0,
+            errorCount,
+            warningCount,
+        },
     };
-}
+};
 
-export function dispatchValidationState(diagnostics: readonly Diagnostic[]) {
-    return setValidationState.of({
-        diagnostics: diagnostics as Diagnostic[],
-        stats: computeValidationState(diagnostics),
-    });
+export function dispatchValidationState(
+    state: EditorState,
+    diagnostics: readonly Diagnostic[],
+) {
+    return setValidationState.of(computeValidationState(state, diagnostics));
 }
 
 export const jsonValidationState = StateField.define<ValidationState>({
