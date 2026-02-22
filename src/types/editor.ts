@@ -1,21 +1,31 @@
 import { EditorView } from 'codemirror';
 
-export type ThemeName =
-    | 'light'
-    | 'dark'
-    | 'ayu_light'
-    | 'clouds_light'
-    | 'espresso_light'
-    | 'noctis_lilac_light'
-    | 'rose_pine_dawn_light'
-    | 'smoothy_light'
-    | 'tomorrow_light'
-    | 'barf_dark'
-    | 'cobalt_dark'
-    | 'cool_glow_dark'
-    | 'dracula_dark';
+export const Themes = {
+    ayu_light: 'ayu_light',
+    barf_dark: 'barf_dark',
+    clouds_light: 'clouds_light',
+    cobalt_dark: 'cobalt_dark',
+    cool_glow_dark: 'cool_glow_dark',
+    dark: 'dark',
+    dracula_dark: 'dracula_dark',
+    espresso_light: 'espresso_light',
+    light: 'light',
+    noctis_lilac_light: 'noctis_lilac_light',
+    rose_pine_dawn_light: 'rose_pine_dawn_light',
+    smoothy_light: 'smoothy_light',
+    tomorrow_light: 'tomorrow_light',
+} as const;
 
-export type EditorLanguage = keyof LanguageOptions;
+export type ThemeName = keyof typeof Themes;
+
+export interface JsonEditorConfig {
+    diagnostics?: boolean;
+    gutter?: boolean;
+    schema?: Record<string, any>;
+    schemaLint?: boolean;
+    hover?: boolean;
+    autocomplete?: boolean;
+}
 
 export interface LanguageOptions {
     json?: JsonEditorConfig;
@@ -26,6 +36,38 @@ export interface LanguageOptions {
     css?: CssEditorConfig;
     python?: PythonEditorConfig;
     */
+}
+
+export type EditorLanguage = keyof LanguageOptions;
+
+export interface DiagnosticEntry {
+    line: number;
+    column: number;
+    message: string;
+}
+
+export interface ValidationStats {
+    isValid: boolean;
+    errorCount: number;
+    warningCount: number;
+}
+
+export interface ValidationDiagnostic {
+    errors: DiagnosticEntry[];
+    warnings: DiagnosticEntry[];
+}
+
+export interface ValidationState {
+    diagnostics: ValidationDiagnostic;
+    stats: ValidationStats;
+}
+
+export interface SearchOptions {
+    enabled?: boolean;
+    top?: boolean;
+    caseSensitive?: boolean;
+    regexp?: boolean;
+    wholeWord?: boolean;
 }
 
 export interface EditorController {
@@ -95,43 +137,4 @@ export type CodeEditorProps =
 export interface ResolvedControlledInvariant {
     mode: 'controlled' | 'uncontrolled';
     value: string;
-}
-
-export interface JsonEditorConfig {
-    diagnostics?: boolean;
-    gutter?: boolean;
-    schema?: Record<string, any>;
-    schemaLint?: boolean;
-    hover?: boolean;
-    autocomplete?: boolean;
-}
-
-export interface SearchOptions {
-    enabled?: boolean;
-    top?: boolean;
-    caseSensitive?: boolean;
-    regexp?: boolean;
-    wholeWord?: boolean;
-}
-
-export interface ValidationStats {
-    isValid: boolean;
-    errorCount: number;
-    warningCount: number;
-}
-
-export interface DiagnosticEntry {
-    line: number;
-    column: number;
-    message: string;
-}
-
-export interface ValidationDiagnostic {
-    errors: DiagnosticEntry[];
-    warnings: DiagnosticEntry[];
-}
-
-export interface ValidationState {
-    diagnostics: ValidationDiagnostic;
-    stats: ValidationStats;
 }
