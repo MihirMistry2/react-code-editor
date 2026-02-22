@@ -19,7 +19,7 @@ This library is designed to scale from a simple embedded editor to a **multi-lan
 - JSON Schema validation support
 - Light & dark themes
 - Search & Replace support
-- Validation state callback
+- Validation & diagnostics controller APIs
 - Designed for future multi-language support
 
 ---
@@ -106,6 +106,7 @@ This keeps the editor **language-agnostic** and flexible.
 - `replace(replacement: string)`
 - `replaceAll(replacement: string)`
 - `getValidation()`
+- `getDiagnostics()`
 
 ### 🧠 Format API (Callback-Based)
 
@@ -201,6 +202,27 @@ const state: {
 
 if (state) {
     const { isValid, errorCount, warningCount } = state;
+}
+```
+
+### 🧪 Diagnostics API
+
+```ts
+const diagnostics: {
+    errors: {
+        line: number;
+        column: number;
+        message: string;
+    }[];
+    warnings: {
+        line: number;
+        column: number;
+        message: string;
+    }[];
+} | null = controllerRef.current?.getDiagnostics();
+
+if (diagnostics) {
+    const { errors, warnings } = diagnostics;
 }
 ```
 
