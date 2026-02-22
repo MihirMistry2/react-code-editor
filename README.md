@@ -345,37 +345,24 @@ To ensure a consistent height, define a height or `min-height` via CSS.
 ## 🎨 Theming
 
 ```tsx
-<CodeEditor language="json" theme="dark" />
+import { Themes } from 'react-code-editor';
+
+<CodeEditor language="json" theme={Themes.dark} />
 ```
 
-Both **light and dark themes** are supported, each with multiple variants.
+The editor includes curated **light and dark theme variants**.
 
-Available themes:
+You can use either:
+- A theme constant from `Themes`
+- Or the theme string directly (e.g. `"dark"`)
 
-Light themes:
+### Available Themes
 
-- light
-- ayu_light
-- clouds_light
-- espresso_light
-- noctis_lilac_light
-- rose_pine_dawn_light
-- smoothy_light
-- tomorrow_light
+**Light**
+`light, ayu_light, clouds_light, espresso_light, noctis_lilac_light, rose_pine_dawn_light, smoothy_light, tomorrow_light`
 
-Dark themes:
-
-- dark
-- barf_dark
-- cobalt_dark
-- cool_glow_dark
-- dracula_dark
-
-Theme names are type-safe via the exported ThemeName union.
-
-```tsx
-import type { ThemeName } from 'react-codemirror-editor';
-```
+**Dark**
+`dark, barf_dark, cobalt_dark, cool_glow_dark, dracula_dark`
 
 ---
 
