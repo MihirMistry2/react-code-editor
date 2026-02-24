@@ -4,51 +4,40 @@
 ![downloads](https://img.shields.io/npm/dw/react-code-editor)
 ![license](https://img.shields.io/npm/l/react-code-editor)
 
-A modern, extensible **CodeMirror 6–based React code editor** featuring first-class TypeScript support, language-aware configuration, optional diagnostics, search, and validation support.
+A modern, extensible **CodeMirror 6–based React code editor** with TypeScript support, JSON schema validation, diagnostics, search, and a powerful controller API.
 
-This library is designed to scale from a simple embedded editor to a **multi-language, schema-aware editing platform**.
-
----
-
-## ✨ Features
-
-- Built on **CodeMirror 6**
-- Controlled & uncontrolled usage
-- Language-specific configuration
-- Optional diagnostics, completion, and hover
-- JSON Schema validation support
-- Light & dark themes
-- Search & Replace support
-- Validation & diagnostics controller APIs
-- Designed for future multi-language support
+Designed to scale from simple embeds to **multi-language platforms**.
 
 ---
 
-## 📦 Installation
+## Features
 
-### Install the editor library
+- Built on CodeMirror 6
+- JSON schema validation (AJV-powered)
+- Diagnostics & search
+- Controller API
+- Curated light & dark themes
+- Language-agnostic formatting
+- Multi-language ready architecture
+
+---
+
+## Install
 
 ```bash
 npm install react-code-editor
-```
-
-### Required peer dependencies
-
-```bash
 npm install react react-dom
 ```
 
-### JSON language support (optional, but recommended)
+Optional (JSON support):
 
 ```bash
 npm install @codemirror/lang-json codemirror-json-schema ajv
 ```
 
-> `ajv` is used internally by `codemirror-json-schema` for JSON Schema validation.
-
 ---
 
-## 🚀 Basic Usage
+## Basic Usage
 
 ```tsx
 import { CodeEditor } from 'react-code-editor';
@@ -58,203 +47,102 @@ export function Example() {
 }
 ```
 
-This creates an **uncontrolled JSON editor** with default configuration.
+---
+
+## Controlled vs Uncontrolled
+
+```tsx
+// Uncontrolled
+<CodeEditor language="json" defaultValue='{"name":"John"}' />
+
+// Controlled
+const [value, setValue] = useState('{}')
+<CodeEditor language="json" value={value} onChange={setValue} />
+```
+
+Do not pass both `value` and `defaultValue`.
 
 ---
 
-## 🔁 Controlled vs Uncontrolled
+## Controller API
 
-### Uncontrolled Editor
+Pass `controllerRef` for programmatic control.
 
-```tsx
-<CodeEditor language="json" defaultValue='{ "name": "John" }' />
+### Methods
+
+```
+copy()
+format(formatter)
+foldAll()
+unfoldAll()
+openSearch()
+closeSearch()
+findNext()
+findPrev()
+replace(string)
+replaceAll(string)
+getValidation()
+getDiagnostics()
 ```
 
-### Controlled Editor
+### Formatting Example
 
 ```tsx
-const [value, setValue] = useState('{}');
-
-<CodeEditor language="json" value={value} onChange={setValue} />;
-```
-
-> ⚠️ Do not pass both `value` and `defaultValue`.
-
----
-
-## 🎮 Editor Controller API
-
-The editor exposes a controller API that allows you to trigger actions programmatically.
-
-### ⚠️ Important design choice
-
-This library does **not** impose formatting logic.
-Instead, you **pass a callback function** that receives the current editor value and returns the formatted result.
-
-This keeps the editor **language-agnostic** and flexible.
-
-### Available Controller Actions
-
-- `copy()`
-- `format(formatter)`
-- `foldAll()`
-- `unfoldAll()`
-- `openSearch()`
-- `closeSearch()`
-- `findNext()`
-- `findPrev()`
-- `replace(replacement: string)`
-- `replaceAll(replacement: string)`
-- `getValidation()`
-- `getDiagnostics()`
-
-### 🧠 Format API (Callback-Based)
-
-```tsx
-format(formatter: (value: string) => string): void
-```
-
-- The editor passes the **current content**
-- Your formatter returns the **new formatted content**
-- The editor updates itself with the returned value
-
-### Example
-
-```tsx
-import { useRef } from 'react';
-import type { EditorController } from 'react-codemirror-editor';
-
-const controllerRef = useRef<EditorController | null>(null);
-
-<CodeEditor
-  language="json"
-  controllerRef={controllerRef}
-/>;
-
-function formatJson(value: string) {
-  try {
-    return JSON.stringify(JSON.parse(value), null, 2);
-  } catch {
-    return value;
-  }
-}
-
-<button onClick={() => controllerRef.current?.format(formatJson)}>Format</button>
-<button onClick={() => controllerRef.current?.copy()}>Copy</button>
-<button onClick={() => controllerRef.current?.foldAll()}>Fold All</button>
-<button onClick={() => controllerRef.current?.unfoldAll()}>Unfold All</button>
-<button onClick={() => controllerRef.current?.openSearch()}>Search</button>
-<button onClick={() => controllerRef.current?.closeSearch()}>Close Search</button>
-```
-
-- Works for **any language**
-- Supports **custom formatter functions**
-- Search UI is **optional** and can be enabled via props
-
-### Example: Prettier Integration (Concept)
-
-```tsx
-controllerRef.current?.format((code) =>
-    prettier.format(code, { parser: 'json' }),
+controllerRef.current?.format((value) =>
+    JSON.stringify(JSON.parse(value), null, 2),
 );
 ```
 
-### 📋 Why Callback-Based Formatting?
+- No built-in formatter
+- Works with Prettier or custom logic
+- Fully language-agnostic
 
-- Keeps core editor **small**
-- Avoids hard dependency on Prettier
-- Supports **any language**
-- Lets consumers decide formatting rules
+---
 
-This is a library-level design decision, not a limitation.
-
-### 🔍 Search & Replace
-
-The editor includes **search & replace functionality** via a controller API:
-
-- `openSearch()` – Opens the search panel
-- `closeSearch()` – Closes the search panel
-- `findNext()` – Finds the next match
-- `findPrev()` – Finds the previous match
-- `replace(replacement: string)` – Replaces the current match
-- `replaceAll(replacement: string)` – Replaces all matches
-
-You can pass **search configuration**:
+## Search
 
 ```tsx
 <CodeEditor
     language="json"
-    searchOptions={{
-        top: true,
-        caseSensitive: false,
-    }}
+    searchOptions={{ top: true, caseSensitive: false }}
 />
 ```
 
-### ✅ Validation State
+---
+
+## Validation & Diagnostics
 
 ```ts
-const state: {
-    isValid: boolean;
-    errorCount: number;
-    warningCount: number;
-} | null = controllerRef.current?.getValidation();
-
-if (state) {
-    const { isValid, errorCount, warningCount } = state;
-}
+const validation = controllerRef.current?.getValidation();
+const diagnostics = controllerRef.current?.getDiagnostics();
 ```
 
-### 🧪 Diagnostics API
+JSON supports:
 
-```ts
-const diagnostics: {
-    errors: {
-        line: number;
-        column: number;
-        message: string;
-    }[];
-    warnings: {
-        line: number;
-        column: number;
-        message: string;
-    }[];
-} | null = controllerRef.current?.getDiagnostics();
+- Syntax errors
+- Schema validation (if schema provided)
 
-if (diagnostics) {
-    const { errors, warnings } = diagnostics;
-}
+Disable diagnostics:
+
+```tsx
+languageOptions={{ json: { diagnostics: false } }}
 ```
 
 ---
 
-## 🌍 Languages
+## Language Support
 
-Languages are enabled explicitly using the `language` prop.
+**Current:** `JSON`  
+**Planned:** `JavaScript`, `TypeScript`, `Python`, `HTML/CSS`
 
-### Currently supported
-
-- **JSON**
-
-Future support for:
-
-- JavaScript
-- TypeScript
-- Python
-- HTML / CSS
-
----
-
-## ⚙️ Language Configuration
-
-Language-specific behavior is configured via `languageOptions`.
+### Configuration
 
 ```tsx
 <CodeEditor
     language="json"
     languageOptions={{
         json: {
-            schema: myJsonSchema,
+            schema,
             diagnostics: true,
             completion: true,
             hover: true,
@@ -265,62 +153,30 @@ Language-specific behavior is configured via `languageOptions`.
 
 ### JSON Options
 
-| Option               | Type                         | Default                   | Description                                            |
-| -------------------- | ---------------------------- | ------------------------- | ------------------------------------------------------ |
-| `schema`             | `object`                     | `undefined`               | JSON Schema used for validation, completion, and hover |
-| `diagnostics`        | `boolean`                    | `true`                    | Enables JSON syntax diagnostics                        |
-| `gutter`             | `boolean`                    | `true`                    | Shows the diagnostics gutter (error markers)           |
-| `schemaLint`         | `boolean`                    | `true if schema provided` | Enables schema-based validation                        |
-| `hover`              | `boolean`                    | `true if schema provided` | Enables hover tooltips from schema                     |
-| `autocomplete`       | `boolean`                    | `true if schema provided` | Enables schema-based autocompletion                    |
-| `onValidationChange` | `(isValid: boolean) => void` | `undefined`               | Callback called whenever JSON validity changes         |
+| Option         | Type    | Default          | Description                              |
+| -------------- | ------- | ---------------- | ---------------------------------------- |
+| `schema`       | object  | `undefined`      | Schema for validation, completion, hover |
+| `diagnostics`  | boolean | `true`           | Enable syntax diagnostics                |
+| `gutter`       | boolean | `true`           | Show error gutter                        |
+| `schemaLint`   | boolean | `true` if schema | Enables schema-based validation          |
+| `hover`        | boolean | `true` if schema | Enables hover tooltips from schema       |
+| `autocomplete` | boolean | `true` if schema | Enables schema-based autocompletion      |
 
-> If no schema is provided, the editor still works normally with **syntax diagnostics only**.
-
----
-
-## 🧪 Diagnostics
-
-Diagnostics are **configurable per language**.
-
-### JSON diagnostics include
-
-- Syntax errors
-- Schema validation errors (when schema is provided)
-
-Disable diagnostics:
-
-```tsx
-languageOptions={{
-  json: {
-    diagnostics: false
-  }
-}}
-```
+> Without a schema, syntax diagnostics still work.
 
 ---
 
-## 🔒 Read-Only Mode
+## Read Only
 
 ```tsx
 <CodeEditor language="json" value={json} readOnly={true} />
 ```
 
-**Notes:**
-
-- `readOnly` must be a boolean
-- Default is `false`
-- When enabled, the editor is non-editable but remains selectable and scrollable
-
 ---
 
-## 📐 Layout & Sizing
+## Layout
 
-By default, CodeMirror sizes itself based on content height.
-This can result in a single-line editor when the value contains only one line.
-
-The editor is designed to expand and fill its container.
-To ensure a consistent height, define a height or `min-height` via CSS.
+Set height via CSS:
 
 ```css
 .cm-editor-container {
@@ -334,66 +190,52 @@ To ensure a consistent height, define a height or `min-height` via CSS.
 }
 ```
 
-**Notes:**
-
-- The editor always fills the container height
-- Padding, borders, and background should be applied to the container
-- Provides full control over responsive layouts
-
 ---
 
-## 🎨 Theming
+## Themes
 
 ```tsx
 import { Themes } from 'react-code-editor';
-
-<CodeEditor language="json" theme={Themes.dark} />
+<CodeEditor theme={Themes.dark} />;
 ```
-
-The editor includes curated **light and dark theme variants**.
-
-You can use either:
-- A theme constant from `Themes`
-- Or the theme string directly (e.g. `"dark"`)
 
 ### Available Themes
 
-**Light**
-`light, ayu_light, clouds_light, espresso_light, noctis_lilac_light, rose_pine_dawn_light, smoothy_light, tomorrow_light`
+**Light:**  
+`light`, `ayu_light`, `clouds_light`, `espresso_light`, `noctis_lilac_light`, `rose_pine_dawn_light`, `smoothy_light`, `tomorrow_light`
 
-**Dark**
-`dark, barf_dark, cobalt_dark, cool_glow_dark, dracula_dark`
-
----
-
-## 🏗 Architecture Notes
-
-- Built on **CodeMirror 6**
-- Language features are isolated and composable
-- Diagnostics, completion, hover, and search are opt-in
-- Clean separation between core editor, languages, and UI
-- Designed for long-term multi-language expansion
+**Dark:**  
+`dark`, `barf_dark`, `cobalt_dark`, `cool_glow_dark`, `dracula_dark`
 
 ---
 
-## 🛣 Roadmap
+## Architecture
 
-- JavaScript / TypeScript language support
-- Python language support
-- Custom extension injection
-- Editor presets
-- Diff & read-only modes
+- Modular & composable
+- Optional diagnostics, hover, completion, search
+- Language extensions isolated per configuration
+- Designed for extensibility
 
 ---
 
-## 📜 License
+## Roadmap
+
+- JavaScript / TypeScript support
+- Python support
+- Extension injection API
+- Presets
+- Diff mode
+
+---
+
+## License
 
 MIT License © 2025 Mihir Mistry
 
 ---
 
-## 🙏 Credits
+## Acknowledgements
 
-Some themes in this library are inspired by  
+Some themes are inspired by  
 [Thememirror](https://github.com/vadimdemedes/thememirror)  
-by Vadim Demedes, licensed under the MIT License.
+by Vadim Demedes (MIT License).
