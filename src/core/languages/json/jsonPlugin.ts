@@ -10,7 +10,13 @@ import {
 
 export const jsonPlugin: LanguagePlugin<'json'> = {
     id: 'json',
-
+    capabilities: {
+        syntax: true,
+        diagnostics: true,
+        validation: true,
+        autocomplete: true,
+        hover: true,
+    },
     build(options: JsonEditorConfig): Extension[] {
         return [
             json(),
