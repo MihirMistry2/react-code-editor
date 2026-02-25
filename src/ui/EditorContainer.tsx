@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 import { createEditor } from '../core/editor';
-import { EditorContainerProps } from '../types';
+import type { EditorContainerProps } from '../types';
 
 export const EditorContainer = ({
     value,

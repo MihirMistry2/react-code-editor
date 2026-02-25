@@ -9,7 +9,7 @@ import {
     replaceAll,
 } from '@codemirror/search';
 import { Extension } from '@codemirror/state';
-import { SearchOptions } from '../../types';
+import type { SearchOptions } from '../../types';
 
 export const openSearch = (view: EditorView | null | undefined) => {
     if (!view) return;

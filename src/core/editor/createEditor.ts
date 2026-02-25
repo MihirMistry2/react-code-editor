@@ -5,7 +5,7 @@ import { basicSetup } from 'codemirror';
 import { readOnlyExtension, searchExtensions } from '../extensions';
 import { buildLanguageExtensions } from '../languages';
 
-import { CreateEditorOptions } from '../../types';
+import type { CreateEditorOptions } from '../../types';
 import { getThemeExtension } from '../themes';
 
 export const createEditor = ({

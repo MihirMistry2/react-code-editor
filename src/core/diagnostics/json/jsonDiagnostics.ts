@@ -10,7 +10,7 @@ import {
 
 import { jsonLinter } from './jsonLinter';
 import { safeJsonCompletion, jsonValidationLinter } from './';
-import { JsonEditorConfig } from '../../../types';
+import type { JsonEditorConfig } from '../../../types';
 
 export const jsonDiagnosticsExtension = (
     options: JsonEditorConfig = {},

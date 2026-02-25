@@ -1,7 +1,7 @@
 import { EditorState, StateEffect, StateField } from '@codemirror/state';
 import type { Diagnostic } from '@codemirror/lint';
 
-import { DiagnosticEntry, ValidationState } from '../../../types/';
+import type { DiagnosticEntry, ValidationState } from '../../../types/';
 
 export const setValidationState = StateEffect.define<ValidationState>();
 

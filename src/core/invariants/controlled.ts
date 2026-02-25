@@ -1,4 +1,4 @@
-import { CodeEditorProps, ResolvedControlledInvariant } from '../../types';
+import type { CodeEditorProps, ResolvedControlledInvariant } from '../../types';
 
 const __DEV__ = process.env.NODE_ENV !== 'production';
 

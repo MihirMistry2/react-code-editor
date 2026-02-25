@@ -1,6 +1,6 @@
 import type { Extension } from '@codemirror/state';
 
-import { ThemeName } from '../../types';
+import type { ThemeName } from '../../types';
 
 import { lightThemes } from './light';
 import { darkThemes } from './dark';

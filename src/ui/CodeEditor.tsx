@@ -3,7 +3,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { createEditorController } from '../core/editor';
 import { resolveControlledInvariant } from '../core/invariants';
 import { EditorContainer } from './';
-import { CodeEditorProps } from '../types';
+import type { CodeEditorProps } from '../types';
 
 export const CodeEditor: React.FC<CodeEditorProps> = (
     props,
