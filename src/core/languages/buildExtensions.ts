@@ -1,25 +1,17 @@
-import { Extension } from '@codemirror/state';
+import type { Extension } from '@codemirror/state';
+import type { EditorLanguage, LanguageOptions } from '../../types';
 
-import { EditorLanguage, LanguageOptions } from '../../types';
+import { getLanguagePlugin } from './';
 
-import { jsonLanguage } from '.';
-import {
-    jsonDiagnosticsExtension,
-    jsonValidationState,
-} from '../diagnostics/json';
-
-export const buildLanguageExtensions = (
+export function buildLanguageExtensions(
     language: EditorLanguage,
-    options: LanguageOptions | undefined,
-): Extension[] => {
-    switch (language) {
-        case 'json':
-            return [
-                jsonLanguage(),
-                jsonValidationState,
-                jsonDiagnosticsExtension(options?.[language] ?? {}),
-            ];
-        default:
-            return [];
+    options?: LanguageOptions[EditorLanguage] | undefined,
+): Extension[] {
+    const plugin = getLanguagePlugin(language);
+
+    if (!plugin) {
+        throw new Error(`Unsupported language '${language}'`);
     }
-};
+
+    return plugin.build(options ?? {});
+}

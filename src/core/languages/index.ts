@@ -1,2 +1,2 @@
-export { jsonLanguage } from './json';
-export { buildLanguageExtensions } from './buildExtensions';
+export * from './registry';
+export * from './buildExtensions';

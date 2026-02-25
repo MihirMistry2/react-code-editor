@@ -22,7 +22,7 @@ export const createEditor = ({
         doc: value,
         extensions: [
             basicSetup,
-            ...buildLanguageExtensions(language, languageOptions),
+            ...buildLanguageExtensions(language, languageOptions?.[language]),
             getThemeExtension(theme),
             readOnlyExtension(readOnly),
             searchExtensions(search),
