@@ -10,6 +10,9 @@
         "moduleResolution": "bundler",
         "resolveJsonModule": true,
 
+        /* Node.js global types */
+        "types": ["node"],
+
         /* Library output */
         "rootDir": "src",
         "outDir": "dist",
