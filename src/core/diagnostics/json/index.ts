@@ -1,8 +1,3 @@
 export { jsonDiagnosticsExtension } from './jsonDiagnostics';
+export { jsonLinter } from './jsonLinter';
 export { safeJsonCompletion } from './safeJsonCompletion';
-export {
-    jsonValidationState,
-    computeValidationState,
-    dispatchValidationState,
-} from './jsonValidationState';
-export { jsonValidationLinter } from './jsonValidationLinter';

@@ -3,10 +3,7 @@ import { json } from '@codemirror/lang-json';
 
 import type { LanguagePlugin, JsonEditorConfig } from '../../../types';
 
-import {
-    jsonDiagnosticsExtension,
-    jsonValidationState,
-} from '../../diagnostics/json';
+import { jsonDiagnosticsExtension, validationState } from '../../diagnostics';
 
 export const jsonPlugin: LanguagePlugin<'json'> = {
     id: 'json',
@@ -20,7 +17,7 @@ export const jsonPlugin: LanguagePlugin<'json'> = {
     build(options: JsonEditorConfig): Extension[] {
         return [
             json(),
-            jsonValidationState,
+            validationState,
             jsonDiagnosticsExtension(options ?? {}),
         ];
     },
