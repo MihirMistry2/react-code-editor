@@ -13,6 +13,7 @@ export const jsonPlugin: LanguagePlugin<'json'> = {
         validation: true,
         autocomplete: true,
         hover: true,
+        formatting: false,
     },
     build(options: JsonEditorConfig): Extension[] {
         return [

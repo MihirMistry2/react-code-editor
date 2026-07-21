@@ -4,4 +4,5 @@ export {
     safeJsonCompletion,
     jsonLinter,
 } from './json';
+export { jsDiagnosticsExtension, jsLinter } from './javascript';
 export { validationLinter, validationState } from './validation';

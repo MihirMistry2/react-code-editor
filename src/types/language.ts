@@ -11,10 +11,16 @@ export interface JsonEditorConfig {
     autocomplete?: boolean;
 }
 
+export interface JsEditorConfig {
+    diagnostics?: boolean;
+    gutter?: boolean;
+    jsx?: boolean;
+}
+
 export interface LanguageOptions {
     json?: JsonEditorConfig;
-    /*
     js?: JsEditorConfig;
+    /*
     ts?: TsEditorConfig;
     html?: HtmlEditorConfig;
     css?: CssEditorConfig;
