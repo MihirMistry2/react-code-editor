@@ -2,18 +2,19 @@ import { Themes } from '../core/themes';
 
 export type ThemeName = keyof typeof Themes;
 
-export interface JsonEditorConfig {
+export interface BaseEditorConfig {
     diagnostics?: boolean;
     gutter?: boolean;
-    schema?: Record<string, any>;
-    schemaLint?: boolean;
-    hover?: boolean;
     autocomplete?: boolean;
 }
 
-export interface JsEditorConfig {
-    diagnostics?: boolean;
-    gutter?: boolean;
+export interface JsonEditorConfig extends BaseEditorConfig {
+    schema?: Record<string, any>;
+    schemaLint?: boolean;
+    hover?: boolean;
+}
+
+export interface JsEditorConfig extends BaseEditorConfig {
     jsx?: boolean;
 }
 

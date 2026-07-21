@@ -3,12 +3,7 @@ import { linter, lintGutter } from '@codemirror/lint';
 
 import { jsLinter } from './jsLinter';
 import { validationLinter } from '../';
-
-export interface JsEditorConfig {
-    diagnostics?: boolean;
-    gutter?: boolean;
-    jsx?: boolean;
-}
+import type { JsEditorConfig } from '../../../types';
 
 export const jsDiagnosticsExtension = (
     options: JsEditorConfig = {},
