@@ -12,7 +12,7 @@ export const jsPlugin: LanguagePlugin<'js'> = {
         autocomplete: true,
         diagnostics: true,
         validation: true,
-        hover: false,
+        hover: true,
         formatting: false,
     },
     build(options: JsEditorConfig): Extension[] {
