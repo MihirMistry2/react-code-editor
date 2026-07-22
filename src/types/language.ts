@@ -23,8 +23,8 @@ export interface JsEditorConfig extends BaseEditorConfig {
 export interface LanguageOptions {
     json?: JsonEditorConfig;
     js?: JsEditorConfig;
+    ts?: JsEditorConfig;
     /*
-    ts?: TsEditorConfig;
     html?: HtmlEditorConfig;
     css?: CssEditorConfig;
     python?: PythonEditorConfig;

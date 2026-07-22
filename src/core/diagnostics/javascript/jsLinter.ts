@@ -38,10 +38,10 @@ const getJsErrorMessage = (
     }
 
     if (!charAfter) {
-        return 'Unexpected end of JavaScript input';
+        return `Unexpected end of input`;
     }
 
-    return 'JavaScript syntax error';
+    return `Syntax error`;
 };
 
 export const jsLinter = (view: EditorView): Diagnostic[] => {
