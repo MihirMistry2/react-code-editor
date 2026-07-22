@@ -14,12 +14,13 @@ Designed to scale from simple embeds to **multi-language platforms**.
 
 - Built on CodeMirror 6
 - JSON schema validation (AJV-powered)
-- JavaScript support
-- Diagnostics & search
+- JavaScript & TypeScript support
+- Diagnostics, autocomplete & hover
+- Powerful search
 - Controller API
 - Curated light & dark themes
 - Language-agnostic formatting
-- Multi-language ready architecture
+- Multi-language plugin architecture
 
 ---
 
@@ -34,6 +35,12 @@ Optional (JSON support):
 
 ```bash
 npm install @codemirror/lang-json codemirror-json-schema ajv
+```
+
+Optional (JavaScript / TypeScript support):
+
+```bash
+npm install @codemirror/lang-javascript
 ```
 
 ---
@@ -56,7 +63,17 @@ export function Example() {
 import { CodeEditor } from 'react-code-editor';
 
 export function Example() {
-    return <CodeEditor language="js" defaultValue="const message = 'Hello World';" />
+    return <CodeEditor language="js" defaultValue="const message = 'Hello World';" />;
+}
+```
+
+### TypeScript
+
+```tsx
+import { CodeEditor } from 'react-code-editor';
+
+export function Example() {
+    <CodeEditor language="ts" defaultValue="interface User { name: string }" />;
 }
 ```
 
@@ -83,7 +100,7 @@ Pass `controllerRef` for programmatic control.
 
 ### Methods
 
-```
+```text
 copy()
 format(formatter)
 foldAll()
@@ -136,26 +153,29 @@ Disable diagnostics for any language:
 languageOptions={{ json: { diagnostics: false } }}
 ```
 
-### JSON 
+### JSON
 
-supports:
+Supports:
 
 - Syntax errors
 - Schema validation (if schema provided)
 
-### JavaScript 
+### JavaScript / TypeScript
 
 Supports:
 
 - Syntax diagnostics
+- Snippet autocomplete
+- Global scope completions
 - Custom schema-based autocomplete
+- Schema hover tooltips
 
 ---
 
 ## Language Support
 
-**Current:** `JSON`, `JavaScript`  
-**Planned:** `TypeScript`, `Python`, `HTML/CSS`
+**Current:** `JSON`, `JavaScript`, `TypeScript`  
+**Planned:** `Python`, `HTML`, `CSS`
 
 ---
 
@@ -194,13 +214,13 @@ These options are available for all supported languages.
 | `schema`       | object  | `undefined`      | Schema for validation, completion, hover |
 | `schemaLint`   | boolean | `true` if schema | Enables schema-based validation          |
 
-### JavaScript
+### JavaScript  / TypeScript
 
 ```tsx
 <CodeEditor
-    language="js"
+    language="js/ts"
     languageOptions={{
-        js: {
+        "js/ts": {
             schema,
             diagnostics: true,
             gutter: true,
@@ -211,7 +231,7 @@ These options are available for all supported languages.
 />
 ```
 
-### JavaScript Options
+### JavaScript / TypeScript Options
 
 | Option         | Type           | Default          | Description                                     |
 | -------------- | -------------- | ---------------- | ----------------------------------------------- |
@@ -257,10 +277,10 @@ import { Themes } from 'react-code-editor';
 
 ### Available Themes
 
-**Light:**  
+**Light:**
 `light`, `ayu_light`, `clouds_light`, `espresso_light`, `noctis_lilac_light`, `rose_pine_dawn_light`, `smoothy_light`, `tomorrow_light`
 
-**Dark:**  
+**Dark:**
 `dark`, `barf_dark`, `cobalt_dark`, `cool_glow_dark`, `dracula_dark`
 
 ---
@@ -276,7 +296,6 @@ import { Themes } from 'react-code-editor';
 
 ## Roadmap
 
-- TypeScript support
 - HTML support
 - CSS support
 - Python support
