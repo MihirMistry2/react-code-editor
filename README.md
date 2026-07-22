@@ -73,7 +73,7 @@ export function Example() {
 import { CodeEditor } from 'react-code-editor';
 
 export function Example() {
-    <CodeEditor language="ts" defaultValue="interface User { name: string }" />;
+    return <CodeEditor language="ts" defaultValue="interface User { name: string }" />;
 }
 ```
 
