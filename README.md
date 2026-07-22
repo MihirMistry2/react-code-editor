@@ -4,7 +4,7 @@
 ![downloads](https://img.shields.io/npm/dw/react-code-editor)
 ![license](https://img.shields.io/npm/l/react-code-editor)
 
-A modern, extensible **CodeMirror 6–based React code editor** with TypeScript support, JSON schema validation, diagnostics, search, and a powerful controller API.
+A modern, extensible **CodeMirror 6–based React code editor** with TypeScript support, built-in language plugins, JSON schema validation, diagnostics, search, and a powerful controller API.
 
 Designed to scale from simple embeds to **multi-language platforms**.
 
@@ -14,6 +14,7 @@ Designed to scale from simple embeds to **multi-language platforms**.
 
 - Built on CodeMirror 6
 - JSON schema validation (AJV-powered)
+- JavaScript support
 - Diagnostics & search
 - Controller API
 - Curated light & dark themes
@@ -39,11 +40,23 @@ npm install @codemirror/lang-json codemirror-json-schema ajv
 
 ## Basic Usage
 
+### JSON
+
 ```tsx
 import { CodeEditor } from 'react-code-editor';
 
 export function Example() {
     return <CodeEditor language="json" defaultValue="{}" />;
+}
+```
+
+### JavaScript
+
+```tsx
+import { CodeEditor } from 'react-code-editor';
+
+export function Example() {
+    return <CodeEditor language="js" defaultValue="const message = 'Hello World';" />
 }
 ```
 
@@ -56,8 +69,8 @@ export function Example() {
 <CodeEditor language="json" defaultValue='{"name":"John"}' />
 
 // Controlled
-const [value, setValue] = useState('{}')
-<CodeEditor language="json" value={value} onChange={setValue} />
+const [value, setValue] = useState('{}');
+<CodeEditor language="json" value={value} onChange={setValue} />;
 ```
 
 Do not pass both `value` and `defaultValue`.
@@ -117,25 +130,49 @@ const validation = controllerRef.current?.getValidation();
 const diagnostics = controllerRef.current?.getDiagnostics();
 ```
 
-JSON supports:
-
-- Syntax errors
-- Schema validation (if schema provided)
-
-Disable diagnostics:
+Disable diagnostics for any language:
 
 ```tsx
 languageOptions={{ json: { diagnostics: false } }}
 ```
 
+### JSON 
+
+supports:
+
+- Syntax errors
+- Schema validation (if schema provided)
+
+### JavaScript 
+
+Supports:
+
+- Syntax diagnostics
+- Custom schema-based autocomplete
+
 ---
 
 ## Language Support
 
-**Current:** `JSON`  
-**Planned:** `JavaScript`, `TypeScript`, `Python`, `HTML/CSS`
+**Current:** `JSON`, `JavaScript`  
+**Planned:** `TypeScript`, `Python`, `HTML/CSS`
 
-### Configuration
+---
+
+## Language Configuration
+
+### Common Options
+
+These options are available for all supported languages.
+
+| Option         | Type    | Default          | Description                              |
+| -------------- | ------- | ---------------- | ---------------------------------------- |
+| `diagnostics`  | boolean | `true`           | Enable syntax diagnostics                |
+| `gutter`       | boolean | `true`           | Show error gutter                        |
+| `hover`        | boolean | `true` if schema | Enables hover tooltips from schema       |
+| `autocomplete` | boolean | `true` if schema | Enable autocompletion                    |
+
+### JSON
 
 ```tsx
 <CodeEditor
@@ -144,8 +181,7 @@ languageOptions={{ json: { diagnostics: false } }}
         json: {
             schema,
             diagnostics: true,
-            completion: true,
-            hover: true,
+            gutter: true,
         },
     }}
 />
@@ -156,11 +192,31 @@ languageOptions={{ json: { diagnostics: false } }}
 | Option         | Type    | Default          | Description                              |
 | -------------- | ------- | ---------------- | ---------------------------------------- |
 | `schema`       | object  | `undefined`      | Schema for validation, completion, hover |
-| `diagnostics`  | boolean | `true`           | Enable syntax diagnostics                |
-| `gutter`       | boolean | `true`           | Show error gutter                        |
 | `schemaLint`   | boolean | `true` if schema | Enables schema-based validation          |
-| `hover`        | boolean | `true` if schema | Enables hover tooltips from schema       |
-| `autocomplete` | boolean | `true` if schema | Enables schema-based autocompletion      |
+
+### JavaScript
+
+```tsx
+<CodeEditor
+    language="js"
+    languageOptions={{
+        js: {
+            schema,
+            diagnostics: true,
+            gutter: true,
+            autocomplete: true,
+            jsx: true
+        },
+    }}
+/>
+```
+
+### JavaScript Options
+
+| Option         | Type           | Default          | Description                                     |
+| -------------- | -------------- | ---------------- | ----------------------------------------------- |
+| `schema`       | `Completion[]` | `[]`             | Custom schema used for JavaScript autocomplete  |
+| `jsx`          | boolean        | `false`          | Enable JSX syntax support                       |
 
 > Without a schema, syntax diagnostics still work.
 
@@ -220,7 +276,9 @@ import { Themes } from 'react-code-editor';
 
 ## Roadmap
 
-- JavaScript / TypeScript support
+- TypeScript support
+- HTML support
+- CSS support
 - Python support
 - Extension injection API
 - Presets
@@ -236,6 +294,6 @@ MIT License © 2025 Mihir Mistry
 
 ## Acknowledgements
 
-Some themes are inspired by  
-[Thememirror](https://github.com/vadimdemedes/thememirror)  
+Some themes are inspired by
+[Thememirror](https://github.com/vadimdemedes/thememirror)
 by Vadim Demedes (MIT License).
