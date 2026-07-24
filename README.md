@@ -1,8 +1,8 @@
 # React Code Editor
 
-![npm](https://img.shields.io/npm/v/react-code-editor)
-![downloads](https://img.shields.io/npm/dw/react-code-editor)
-![license](https://img.shields.io/npm/l/react-code-editor)
+![npm](https://img.shields.io/npm/v/react-codemirror-editor)
+![downloads](https://img.shields.io/npm/dw/react-codemirror-editor)
+![license](https://img.shields.io/npm/l/react-codemirror-editor)
 
 A modern, extensible **CodeMirror 6–based React code editor** with TypeScript support, built-in language plugins, JSON schema validation, diagnostics, search, and a powerful controller API.
 
@@ -27,7 +27,7 @@ Designed to scale from simple embeds to **multi-language platforms**.
 ## Install
 
 ```bash
-npm install react-code-editor
+npm install react-codemirror-editor
 npm install react react-dom
 ```
 
@@ -50,7 +50,7 @@ npm install @codemirror/lang-javascript
 ### JSON
 
 ```tsx
-import { CodeEditor } from 'react-code-editor';
+import { CodeEditor } from 'react-codemirror-editor';
 
 export function Example() {
     return <CodeEditor language="json" defaultValue="{}" />;
@@ -60,7 +60,7 @@ export function Example() {
 ### JavaScript
 
 ```tsx
-import { CodeEditor } from 'react-code-editor';
+import { CodeEditor } from 'react-codemirror-editor';
 
 export function Example() {
     return <CodeEditor language="js" defaultValue="const message = 'Hello World';" />;
@@ -70,7 +70,7 @@ export function Example() {
 ### TypeScript
 
 ```tsx
-import { CodeEditor } from 'react-code-editor';
+import { CodeEditor } from 'react-codemirror-editor';
 
 export function Example() {
     return <CodeEditor language="ts" defaultValue="interface User { name: string }" />;
@@ -271,7 +271,7 @@ Set height via CSS:
 ## Themes
 
 ```tsx
-import { Themes } from 'react-code-editor';
+import { Themes } from 'react-codemirror-editor';
 <CodeEditor theme={Themes.dark} />;
 ```
 
