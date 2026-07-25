@@ -2,7 +2,7 @@ import { Themes } from '../core/themes';
 
 type ThemeName = keyof typeof Themes;
 
-interface ThemeColors {
+export interface ThemeColors {
     background?: string;
     foreground?: string;
     selection?: string;
@@ -15,7 +15,7 @@ interface ThemeColors {
     activeLineNumber?: string;
 }
 
-interface ThemeSyntax {
+export interface ThemeSyntax {
     keyword?: string;
     string?: string;
     number?: string;
