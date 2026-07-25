@@ -18,7 +18,8 @@ Designed to scale from simple embeds to **multi-language platforms**.
 - Diagnostics, autocomplete & hover
 - Powerful search
 - Controller API
-- Curated light & dark themes
+- Built-in light & dark themes
+- Fully customizable themes
 - Language-agnostic formatting
 - Multi-language plugin architecture
 
@@ -277,11 +278,43 @@ import { Themes } from 'react-codemirror-editor';
 
 ### Available Themes
 
-**Light:**
-`light`, `ayu_light`, `clouds_light`, `espresso_light`, `noctis_lilac_light`, `rose_pine_dawn_light`, `smoothy_light`, `tomorrow_light`
+| Category  | Themes                                                                                                                                  |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **Light** | `light`, `ayu_light`, `clouds_light`, `espresso_light`, `noctis_lilac_light`, `rose_pine_dawn_light`, `smoothy_light`, `tomorrow_light` |
+| **Dark**  | `dark`, `barf_dark`, `cobalt_dark`, `cool_glow_dark`, `dracula_dark`                                                                    |
 
-**Dark:**
-`dark`, `barf_dark`, `cobalt_dark`, `cool_glow_dark`, `dracula_dark`
+### Custom Theme
+
+Create a custom editor theme using a simple configuration object.
+
+```tsx
+const customTheme = {
+    dark: true,
+    colors: {
+        background: '#1b1414',
+        foreground: '#f2eaea',
+        cursor: '#ff6b6b',
+        selection: '#5a2424',
+        activeLineBackground: '#2b1c1c',
+    },
+    syntax: {
+        keyword: '#ff6b81',
+        string: '#ffb86c',
+        function: '#ff8a65',
+        comment: '#8c6b6b',
+    },
+};
+
+<CodeEditor theme={customTheme} />
+```
+
+### Theme Options
+
+| Section      | Options |
+| ------------ | ------- |
+| **General**  | `dark` |
+| **Colors**   | `background`, `foreground`, `cursor`, `selection`, `gutterBackground`, `gutterForeground`, `lineNumber`, `activeLineNumber`, `activeLineBackground`, `activeLineGutter` |
+| **Syntax**   | `keyword`, `string`, `number`, `comment`, `variable`, `function`, `property`, `type`, `class`, `tag`, `attribute`, `operator`, `punctuation` |
 
 ---
 
