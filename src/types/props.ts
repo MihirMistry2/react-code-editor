@@ -1,5 +1,5 @@
 import {
-    ThemeName,
+    EditorTheme,
     EditorLanguage,
     LanguageOptions,
     SearchOptions,
@@ -9,7 +9,7 @@ import {
 export interface CreateEditorOptions {
     parent: HTMLElement;
     value: string;
-    theme?: ThemeName;
+    theme?: EditorTheme;
     readOnly?: boolean;
     language: EditorLanguage;
     languageOptions?: LanguageOptions;
@@ -20,7 +20,7 @@ export interface CreateEditorOptions {
 export interface EditorContainerProps {
     value: string;
     controller: EditorController;
-    theme?: ThemeName;
+    theme?: EditorTheme;
     readOnly?: boolean;
     language: EditorLanguage;
     languageOptions?: LanguageOptions;
@@ -29,7 +29,7 @@ export interface EditorContainerProps {
 }
 
 interface BaseCodeEditorProps {
-    theme?: ThemeName;
+    theme?: EditorTheme;
     readOnly?: boolean;
     language: EditorLanguage;
     languageOptions?: LanguageOptions;

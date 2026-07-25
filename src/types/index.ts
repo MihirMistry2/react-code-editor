@@ -4,3 +4,4 @@ export * from './validation';
 export * from './search';
 export * from './props';
 export * from './plugin';
+export * from './theme';

@@ -1,8 +1,4 @@
 import { Completion } from '@codemirror/autocomplete';
-import { Themes } from '../core/themes';
-
-export type ThemeName = keyof typeof Themes;
-
 export interface BaseEditorConfig {
     diagnostics?: boolean;
     gutter?: boolean;
