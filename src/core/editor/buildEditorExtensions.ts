@@ -1,6 +1,6 @@
-import { EditorView } from 'codemirror';
 import type { Extension } from '@codemirror/state';
 
+import { lineWrappingExtension } from '../extensions';
 import type { EditorLanguage, LanguageOptions } from '../../types';
 
 export const buildEditorExtensions = (
@@ -9,7 +9,7 @@ export const buildEditorExtensions = (
     const extensions: Extension[] = [];
 
     if (options?.line_wrapping) {
-        extensions.push(EditorView.lineWrapping);
+        extensions.push(lineWrappingExtension());
     }
 
     return extensions;
