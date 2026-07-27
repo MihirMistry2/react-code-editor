@@ -4,6 +4,7 @@ export interface BaseEditorConfig {
     gutter?: boolean;
     autocomplete?: boolean;
     hover?: boolean;
+    line_wrapping?: boolean;
 }
 
 export interface JsonEditorConfig extends BaseEditorConfig {

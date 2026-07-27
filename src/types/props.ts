@@ -6,6 +6,8 @@ import {
     EditorController,
 } from './';
 
+export type EditorChangeHandler = (value: string) => void;
+
 export interface CreateEditorOptions {
     parent: HTMLElement;
     value: string;
@@ -14,7 +16,7 @@ export interface CreateEditorOptions {
     language: EditorLanguage;
     languageOptions?: LanguageOptions;
     search?: boolean | SearchOptions;
-    onChange?: (value: string) => void;
+    onChange?: EditorChangeHandler;
 }
 
 export interface EditorContainerProps {
@@ -25,7 +27,7 @@ export interface EditorContainerProps {
     language: EditorLanguage;
     languageOptions?: LanguageOptions;
     search?: boolean | SearchOptions;
-    onChange?: (value: string) => void;
+    onChange?: EditorChangeHandler;
 }
 
 interface BaseCodeEditorProps {
@@ -39,7 +41,7 @@ interface BaseCodeEditorProps {
 
 interface ControlledCodeEditorProps {
     value: string;
-    onChange: (value: string) => void;
+    onChange: EditorChangeHandler;
     defaultValue?: never;
 }
 
