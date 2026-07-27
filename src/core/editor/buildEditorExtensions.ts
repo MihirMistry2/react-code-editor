@@ -6,11 +6,5 @@ import type { EditorLanguage, LanguageOptions } from '../../types';
 export const buildEditorExtensions = (
     options?: LanguageOptions[EditorLanguage] | undefined,
 ): Extension[] => {
-    const extensions: Extension[] = [];
-
-    if (options?.line_wrapping) {
-        extensions.push(lineWrappingExtension());
-    }
-
-    return extensions;
+    return [lineWrappingExtension(options?.line_wrapping)];
 };
