@@ -4,7 +4,7 @@ import { basicSetup } from 'codemirror';
 
 import { readOnlyExtension, searchExtensions } from '../extensions';
 import { buildLanguageExtensions } from '../languages';
-import { buildFeatureExtensions, updateListener } from './';
+import { buildFeatureExtensions, updateListener } from './setup';
 
 import type { CreateEditorOptions } from '../../types';
 import { getThemeExtension } from '../themes';
