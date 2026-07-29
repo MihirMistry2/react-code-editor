@@ -7,7 +7,7 @@ export const buildEditorExtensions = (
     options?: LanguageOptions[EditorLanguage] | undefined,
 ): Extension[] => {
     return [
-        indentExtensions(options?.tab_size),
+        indentExtensions(options?.indent_unit, options?.indent_with_tab),
         lineWrappingExtension(options?.line_wrapping),
     ];
 };
