@@ -11,4 +11,3 @@ export {
     replace,
     replaceAllOccurrences,
 } from './search';
-export * from './editor';

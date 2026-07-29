@@ -1,12 +1,16 @@
 import { Completion } from '@codemirror/autocomplete';
-export interface BaseEditorConfig {
+
+export interface FeatureEditorConfig {
+    line_wrapping?: boolean;
+    indent_unit?: number;
+    indent_with_tab?: boolean;
+}
+
+export interface BaseEditorConfig extends FeatureEditorConfig {
     diagnostics?: boolean;
     gutter?: boolean;
     autocomplete?: boolean;
     hover?: boolean;
-    line_wrapping?: boolean;
-    indent_unit?: number;
-    indent_with_tab?: boolean;
 }
 
 export interface JsonEditorConfig extends BaseEditorConfig {
