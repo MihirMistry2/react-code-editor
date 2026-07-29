@@ -5,6 +5,7 @@ export interface BaseEditorConfig {
     autocomplete?: boolean;
     hover?: boolean;
     line_wrapping?: boolean;
+    tab_size?: number;
 }
 
 export interface JsonEditorConfig extends BaseEditorConfig {
