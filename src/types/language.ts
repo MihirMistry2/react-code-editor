@@ -1,6 +1,7 @@
 import { Completion } from '@codemirror/autocomplete';
 
 export interface FeatureEditorConfig {
+    auto_close_brackets?: boolean;
     line_numbers?: boolean;
     line_wrapping?: boolean;
     indent_unit?: number;
