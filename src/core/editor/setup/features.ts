@@ -2,11 +2,16 @@ import {
     EditorView,
     lineNumbers,
     highlightActiveLineGutter,
+    highlightActiveLine,
 } from '@codemirror/view';
 import { EditorState, Extension } from '@codemirror/state';
 import { keymap } from '@codemirror/view';
 import { closeBrackets, closeBracketsKeymap } from '@codemirror/autocomplete';
-import { indentUnit } from '@codemirror/language';
+import {
+    indentOnInput,
+    indentUnit,
+    bracketMatching,
+} from '@codemirror/language';
 import { indentWithTab } from '@codemirror/commands';
 
 import { FeatureEditorConfig } from '../../../types';
@@ -16,8 +21,11 @@ export const buildFeatureExtensions = (
 ): Extension[] => {
     const {
         auto_close_brackets = true,
+        bracket_matching = true,
         line_numbers = true,
+        indent_on_input = true,
         line_wrapping = false,
+        highlight_active_line = true,
         indent_unit = 2,
         indent_with_tab = true,
     } = options;
@@ -26,10 +34,13 @@ export const buildFeatureExtensions = (
     return [
         ...(line_numbers ? [lineNumbers(), highlightActiveLineGutter()] : []),
         ...(line_wrapping ? [EditorView.lineWrapping] : []),
+        ...(indent_on_input ? [indentOnInput()] : []),
         ...(indent_with_tab ? [keymap.of([indentWithTab])] : []),
         ...(auto_close_brackets
             ? [closeBrackets(), keymap.of(closeBracketsKeymap)]
             : []),
+        ...(bracket_matching ? [bracketMatching()] : []),
+        ...(highlight_active_line ? [highlightActiveLine()] : []),
         indentUnit.of(indentChar),
         EditorState.tabSize.of(indent_unit),
     ];
