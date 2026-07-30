@@ -1,6 +1,6 @@
 import { EditorState } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
-import { basicSetup } from 'codemirror';
+import { minimalSetup } from 'codemirror';
 
 import { readOnlyExtension, searchExtensions } from '../extensions';
 import { buildLanguageExtensions } from '../languages';
@@ -22,7 +22,7 @@ export const createEditor = ({
     const state = EditorState.create({
         doc: value,
         extensions: [
-            basicSetup,
+            minimalSetup,
             ...buildFeatureExtensions(languageOptions?.[language]),
             ...buildLanguageExtensions(language, languageOptions?.[language]),
             getThemeExtension(theme),
