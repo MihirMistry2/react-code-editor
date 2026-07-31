@@ -1,6 +1,6 @@
 import { Completion } from '@codemirror/autocomplete';
 
-export interface FeatureEditorConfig {
+export interface EditorConfig {
     auto_close_brackets?: boolean;
     allow_multiple_selections?: boolean;
     bracket_matching?: boolean;
@@ -14,7 +14,7 @@ export interface FeatureEditorConfig {
     fold_gutter?: boolean;
 }
 
-export interface BaseEditorConfig extends FeatureEditorConfig {
+export interface BaseEditorConfig extends EditorConfig {
     diagnostics?: boolean;
     gutter?: boolean;
     autocomplete?: boolean;

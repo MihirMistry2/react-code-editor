@@ -1,3 +1,3 @@
 export { basicSetup } from './basic';
-export { buildFeatureExtensions } from './features';
+export { buildEditorExtensions } from './extensions';
 export { updateListener } from './listener';

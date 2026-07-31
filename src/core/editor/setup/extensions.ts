@@ -20,10 +20,10 @@ import {
     highlightSelectionMatches,
 } from '@codemirror/search';
 
-import { FeatureEditorConfig } from '../../../types';
+import { EditorConfig } from '../../../types';
 
-export const buildFeatureExtensions = (
-    options: FeatureEditorConfig = {},
+export const buildEditorExtensions = (
+    options: EditorConfig = {},
 ): Extension[] => {
     const {
         auto_close_brackets = true,
