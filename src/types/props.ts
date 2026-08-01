@@ -1,6 +1,7 @@
 import {
     EditorTheme,
     EditorLanguage,
+    EditorOptions,
     LanguageOptions,
     SearchOptions,
     EditorController,
@@ -14,6 +15,7 @@ export interface CreateEditorOptions {
     theme?: EditorTheme;
     readOnly?: boolean;
     language: EditorLanguage;
+    editorOptions?: EditorOptions;
     languageOptions?: LanguageOptions;
     search?: boolean | SearchOptions;
     onChange?: EditorChangeHandler;
@@ -25,6 +27,7 @@ export interface EditorContainerProps {
     theme?: EditorTheme;
     readOnly?: boolean;
     language: EditorLanguage;
+    editorOptions?: EditorOptions;
     languageOptions?: LanguageOptions;
     search?: boolean | SearchOptions;
     onChange?: EditorChangeHandler;
@@ -34,6 +37,7 @@ interface BaseCodeEditorProps {
     theme?: EditorTheme;
     readOnly?: boolean;
     language: EditorLanguage;
+    editorOptions?: EditorOptions;
     languageOptions?: LanguageOptions;
     search?: boolean | SearchOptions;
     onReady?: (controller: EditorController) => void;

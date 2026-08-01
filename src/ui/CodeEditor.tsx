@@ -12,6 +12,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = (
         theme,
         readOnly,
         language,
+        editorOptions,
         languageOptions,
         search,
         onChange,
@@ -41,6 +42,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = (
             theme={theme}
             readOnly={readOnly}
             language={language}
+            editorOptions={editorOptions}
             languageOptions={languageOptions}
             search={search}
             onChange={handleEditorChange}

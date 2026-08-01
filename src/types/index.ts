@@ -5,3 +5,4 @@ export * from './search';
 export * from './props';
 export * from './plugin';
 export * from './theme';
+export * from './editor';

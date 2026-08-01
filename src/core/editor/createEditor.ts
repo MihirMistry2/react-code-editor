@@ -14,6 +14,7 @@ export const createEditor = ({
     theme,
     readOnly = false,
     language,
+    editorOptions,
     languageOptions,
     search,
     onChange,
@@ -22,7 +23,7 @@ export const createEditor = ({
         doc: value,
         extensions: [
             ...basicSetup,
-            ...buildEditorExtensions(languageOptions?.[language]),
+            ...buildEditorExtensions(editorOptions),
             ...buildLanguageExtensions(language, languageOptions?.[language]),
             getThemeExtension(theme),
             readOnlyExtension(readOnly),
