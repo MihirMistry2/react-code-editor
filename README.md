@@ -251,6 +251,40 @@ These options are available for all supported languages.
 
 ---
 
+## Editor Options
+
+Configure the editor experience with a set of customizable editor options.
+
+```tsx
+<CodeEditor
+    language="json"
+    editorOptions={{
+        line_wrapping: true,
+        indent_unit: 4,
+        indent_with_tab: true,
+        ...
+    }}
+/>
+```
+
+### Available Options
+
+| Option | Type | Default | Description |
+| ------- | ---- | :-----: | ----------- |
+| `line_numbers` | `boolean` | `true` | Display line numbers. |
+| `line_wrapping` | `boolean` | `false` | Wrap long lines instead of enabling horizontal scrolling. |
+| `highlight_active_line` | `boolean` | `true` | Highlight the active line. |
+| `highlight_selection_matches` | `boolean` | `true` | Highlight all occurrences of the current selection. |
+| `fold_gutter` | `boolean` | `true` | Display the code folding gutter and enable code folding. |
+| `bracket_matching` | `boolean` | `true` | Highlight matching brackets while the cursor is adjacent to them. |
+| `auto_close_brackets` | `boolean` | `true` | Automatically insert matching brackets and quotes while typing. |
+| `indent_on_input` | `boolean` | `true` | Automatically re-indent lines as you type. |
+| `indent_with_tab` | `boolean` | `true` | Allow the <kbd>Tab</kbd> key to indent the current line or selected lines. |
+| `indent_unit` | `number` | `2` | Number of spaces used for indentation when tabs are disabled. |
+| `allow_multiple_selections` | `boolean` | `true` | Enable multiple cursors and selections using <kbd>Ctrl/Cmd + D</kbd>. |
+
+---
+
 ## Layout
 
 Set height via CSS:
