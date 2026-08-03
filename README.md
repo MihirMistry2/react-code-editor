@@ -219,9 +219,9 @@ These options are available for all supported languages.
 
 ```tsx
 <CodeEditor
-    language="js/ts"
+    language="js"
     languageOptions={{
-        "js/ts": {
+        "js": {
             schema,
             diagnostics: true,
             gutter: true,
