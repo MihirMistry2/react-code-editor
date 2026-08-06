@@ -1,9 +1,9 @@
 import type { Extension } from '@codemirror/state';
 import { json } from '@codemirror/lang-json';
 
-import type { LanguagePlugin, JsonEditorConfig } from '../../../types';
-
 import { jsonDiagnosticsExtension, validationState } from '../../diagnostics';
+
+import type { LanguagePlugin, JsonEditorConfig } from '../../../types';
 
 export const jsonPlugin: LanguagePlugin<'json'> = {
     id: 'json',

@@ -17,12 +17,14 @@ export interface JsEditorConfig extends BaseEditorConfig {
     jsx?: boolean;
 }
 
+export interface htmlEditorConfig extends BaseEditorConfig {}
+
 export interface LanguageOptions {
     json?: JsonEditorConfig;
     js?: JsEditorConfig;
     ts?: JsEditorConfig;
+    html?: htmlEditorConfig;
     /*
-    html?: HtmlEditorConfig;
     css?: CssEditorConfig;
     python?: PythonEditorConfig;
     */

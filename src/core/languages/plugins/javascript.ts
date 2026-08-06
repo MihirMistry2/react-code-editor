@@ -1,9 +1,9 @@
 import type { Extension } from '@codemirror/state';
 import { javascript } from '@codemirror/lang-javascript';
 
-import type { LanguagePlugin, JsEditorConfig } from '../../../types';
-
 import { jsDiagnosticsExtension, validationState } from '../../diagnostics';
+
+import type { LanguagePlugin, JsEditorConfig } from '../../../types';
 
 export const jsPlugin: LanguagePlugin<'js'> = {
     id: 'js',
