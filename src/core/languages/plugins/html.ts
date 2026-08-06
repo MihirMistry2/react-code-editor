@@ -1,7 +1,9 @@
 import type { Extension } from '@codemirror/state';
 import { html } from '@codemirror/lang-html';
 
-import type { LanguagePlugin, htmlEditorConfig } from '../../../types';
+import { htmlDiagnosticsExtension, validationState } from '../../diagnostics';
+
+import type { LanguagePlugin, HtmlEditorConfig } from '../../../types';
 
 export const htmlPlugin: LanguagePlugin<'html'> = {
     id: 'html',
@@ -10,11 +12,11 @@ export const htmlPlugin: LanguagePlugin<'html'> = {
         autocomplete: true,
         diagnostics: true,
         validation: true,
-        hover: true,
+        hover: false,
         formatting: false,
     },
-    build(options: htmlEditorConfig): Extension[] {
+    build(options: HtmlEditorConfig): Extension[] {
         console.log('htmlPlugin build options:', options);
-        return [html()];
+        return [html(), validationState, htmlDiagnosticsExtension(options)];
     },
 };

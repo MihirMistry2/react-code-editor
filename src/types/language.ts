@@ -4,26 +4,27 @@ export interface BaseEditorConfig {
     diagnostics?: boolean;
     gutter?: boolean;
     autocomplete?: boolean;
-    hover?: boolean;
 }
 
 export interface JsonEditorConfig extends BaseEditorConfig {
     schema?: Record<string, any>;
     schemaLint?: boolean;
+    hover?: boolean;
 }
 
 export interface JsEditorConfig extends BaseEditorConfig {
     schema?: Completion[];
     jsx?: boolean;
+    hover?: boolean;
 }
 
-export interface htmlEditorConfig extends BaseEditorConfig {}
+export interface HtmlEditorConfig extends BaseEditorConfig {}
 
 export interface LanguageOptions {
     json?: JsonEditorConfig;
     js?: JsEditorConfig;
     ts?: JsEditorConfig;
-    html?: htmlEditorConfig;
+    html?: HtmlEditorConfig;
     /*
     css?: CssEditorConfig;
     python?: PythonEditorConfig;
