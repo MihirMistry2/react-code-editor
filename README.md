@@ -14,12 +14,13 @@ Designed to scale from simple embeds to **multi-language platforms**.
 
 - Built on CodeMirror 6
 - JSON schema validation (AJV-powered)
-- JavaScript & TypeScript support
-- Diagnostics, autocomplete & hover
+- JavaScript, TypeScript & HTML support
+- Diagnostics, autocomplete & validation
 - Powerful search
 - Controller API
 - Built-in light & dark themes
 - Fully customizable themes
+- Configurable editor options
 - Language-agnostic formatting
 - Multi-language plugin architecture
 
@@ -42,6 +43,12 @@ Optional (JavaScript / TypeScript support):
 
 ```bash
 npm install @codemirror/lang-javascript
+```
+
+Optional (HTML support):
+
+```bash
+npm install @codemirror/lang-html
 ```
 
 ---
@@ -75,6 +82,16 @@ import { CodeEditor } from 'react-codemirror-editor';
 
 export function Example() {
     return <CodeEditor language="ts" defaultValue="interface User { name: string }" />;
+}
+```
+
+### HTML
+
+```tsx
+import { CodeEditor } from 'react-codemirror-editor';
+
+export function Example() {
+    return <CodeEditor language="html" defaultValue="<h1>Hello World</h1>" />;
 }
 ```
 
@@ -167,16 +184,23 @@ Supports:
 
 - Syntax diagnostics
 - Snippet autocomplete
-- Global scope completions
 - Custom schema-based autocomplete
 - Schema hover tooltips
+
+### HTML
+
+Supports:
+
+- Syntax diagnostics
+- HTML tag autocomplete
+- HTML attribute autocomplete
 
 ---
 
 ## Language Support
 
-**Current:** `JSON`, `JavaScript`, `TypeScript`  
-**Planned:** `Python`, `HTML`, `CSS`
+**Current:** `JSON`, `JavaScript`, `TypeScript`, `HTML`  
+**Planned:** `Python`, `CSS`
 
 ---
 
@@ -190,8 +214,7 @@ These options are available for all supported languages.
 | -------------- | ------- | ---------------- | ---------------------------------------- |
 | `diagnostics`  | boolean | `true`           | Enable syntax diagnostics                |
 | `gutter`       | boolean | `true`           | Show error gutter                        |
-| `hover`        | boolean | `true` if schema | Enables hover tooltips from schema       |
-| `autocomplete` | boolean | `true` if schema | Enable autocompletion                    |
+| `autocomplete` | boolean | `true`           | Enable language-specific autocomplete.   |
 
 ### JSON
 
@@ -214,14 +237,15 @@ These options are available for all supported languages.
 | -------------- | ------- | ---------------- | ---------------------------------------- |
 | `schema`       | object  | `undefined`      | Schema for validation, completion, hover |
 | `schemaLint`   | boolean | `true` if schema | Enables schema-based validation          |
+| `hover`        | boolean | `true` if schema | Enables hover tooltips from schema       |
 
 ### JavaScript  / TypeScript
 
 ```tsx
 <CodeEditor
-    language="js"
+    language="ts"
     languageOptions={{
-        "js": {
+        "ts": {
             schema,
             diagnostics: true,
             gutter: true,
@@ -237,7 +261,23 @@ These options are available for all supported languages.
 | Option         | Type           | Default          | Description                                     |
 | -------------- | -------------- | ---------------- | ----------------------------------------------- |
 | `schema`       | `Completion[]` | `[]`             | Custom schema used for JavaScript autocomplete  |
+| `hover`        | boolean        | `true` if schema | Enables hover tooltips from schema              |
 | `jsx`          | boolean        | `false`          | Enable JSX syntax support                       |
+
+### HTML
+
+```tsx
+<CodeEditor
+    language="html"
+    languageOptions={{
+        html: {
+            diagnostics: true,
+            gutter: true,
+            autocomplete: true,
+        },
+    }}
+/>
+```
 
 > Without a schema, syntax diagnostics still work.
 
@@ -363,12 +403,8 @@ const customTheme = {
 
 ## Roadmap
 
-- HTML support
 - CSS support
 - Python support
-- Extension injection API
-- Presets
-- Diff mode
 
 ---
 
