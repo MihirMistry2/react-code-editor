@@ -11,12 +11,11 @@ export const htmlPlugin: LanguagePlugin<'html'> = {
         syntax: true,
         autocomplete: true,
         diagnostics: true,
-        validation: true,
+        validation: false,
         hover: false,
         formatting: false,
     },
     build(options: HtmlEditorConfig): Extension[] {
-        console.log('htmlPlugin build options:', options);
         return [html(), validationState, htmlDiagnosticsExtension(options)];
     },
 };
