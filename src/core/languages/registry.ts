@@ -1,12 +1,19 @@
 import type { EditorLanguage, LanguagePlugin } from '../../types';
 
-import { jsonPlugin, jsPlugin, tsPlugin, htmlPlugin } from './plugins';
+import {
+    jsonPlugin,
+    jsPlugin,
+    tsPlugin,
+    htmlPlugin,
+    cssPlugin,
+} from './plugins';
 
 const registry: Record<string, LanguagePlugin<any>> = {
     json: jsonPlugin,
     js: jsPlugin,
     ts: tsPlugin,
     html: htmlPlugin,
+    css: cssPlugin,
 };
 
 export function getLanguagePlugin<Language extends EditorLanguage>(
