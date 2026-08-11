@@ -1,6 +1,8 @@
 import type { Extension } from '@codemirror/state';
 import { css } from '@codemirror/lang-css';
 
+import { cssDiagnosticsExtension, validationState } from '../../diagnostics';
+
 import type { LanguagePlugin } from '../../../types';
 
 export const cssPlugin: LanguagePlugin<'css'> = {
@@ -14,6 +16,6 @@ export const cssPlugin: LanguagePlugin<'css'> = {
         formatting: false,
     },
     build(): Extension[] {
-        return [css()];
+        return [css(), validationState, cssDiagnosticsExtension()];
     },
 };

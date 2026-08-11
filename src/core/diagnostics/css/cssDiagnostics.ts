@@ -1,0 +1,33 @@
+import { Extension } from '@codemirror/state';
+import { linter, lintGutter } from '@codemirror/lint';
+import { cssCompletionSource } from '@codemirror/lang-css';
+import { autocompletion } from '@codemirror/autocomplete';
+
+import { cssLinter } from './cssLinter';
+import { validationLinter } from '../';
+import type { CssEditorConfig } from '../../../types';
+
+export const cssDiagnosticsExtension = (
+    options: CssEditorConfig = {},
+): Extension[] => {
+    const { diagnostics = true, gutter = true, autocomplete = true } = options;
+    const extensions: Extension[] = [];
+
+    if (diagnostics) {
+        extensions.push(linter(validationLinter(cssLinter)));
+
+        if (gutter) {
+            extensions.push(lintGutter());
+        }
+    }
+
+    if (autocomplete) {
+        extensions.push(
+            autocompletion({
+                override: [cssCompletionSource],
+            }),
+        );
+    }
+
+    return extensions;
+};

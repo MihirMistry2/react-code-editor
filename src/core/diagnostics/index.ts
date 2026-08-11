@@ -6,4 +6,5 @@ export {
 } from './json';
 export { jsDiagnosticsExtension, jsLinter } from './javascript';
 export { htmlDiagnosticsExtension, htmlLinter } from './html';
+export { cssDiagnosticsExtension, cssLinter } from './css';
 export { validationLinter, validationState } from './validation';
