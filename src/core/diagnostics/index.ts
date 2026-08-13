@@ -10,7 +10,7 @@ export { createSyntaxTreeLinter } from './utils/syntaxTreeLinter';
 
 export { cssDiagnosticsExtension, cssLinter } from './languages/css';
 export { htmlDiagnosticsExtension, htmlLinter } from './languages/html';
-export { jsDiagnosticsExtension, jsLinter } from './javascript';
+export { jsDiagnosticsExtension, jsLinter } from './languages/javascript';
 export {
     jsonDiagnosticsExtension,
     jsonLinter,
