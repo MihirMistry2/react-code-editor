@@ -1,11 +1,14 @@
-import { Extension } from '@codemirror/state';
+import type { Extension } from '@codemirror/state';
 import { linter, lintGutter } from '@codemirror/lint';
-import { cssCompletionSource } from '@codemirror/lang-css';
 import { autocompletion } from '@codemirror/autocomplete';
+import { cssCompletionSource } from '@codemirror/lang-css';
 
-import { cssLinter } from './cssLinter';
 import { validationLinter } from '../';
+import { createSyntaxTreeLinter } from '../utils/syntaxTreeLinter';
+
 import type { CssEditorConfig } from '../../../types';
+
+export const cssLinter = createSyntaxTreeLinter(() => 'Syntax error in CSS');
 
 export const cssDiagnosticsExtension = (
     options: CssEditorConfig = {},

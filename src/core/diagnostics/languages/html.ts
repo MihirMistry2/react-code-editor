@@ -1,6 +1,13 @@
 import { EditorView } from '@codemirror/view';
+import { Extension } from '@codemirror/state';
+import { linter, lintGutter } from '@codemirror/lint';
+import { htmlCompletionSource } from '@codemirror/lang-html';
+import { autocompletion } from '@codemirror/autocomplete';
 
+import { validationLinter } from '../';
 import { createSyntaxTreeLinter } from '../utils/syntaxTreeLinter';
+
+import type { HtmlEditorConfig } from '../../../types';
 
 const getErrorMessage = (
     view: EditorView,
@@ -36,3 +43,28 @@ const getErrorMessage = (
 };
 
 export const htmlLinter = createSyntaxTreeLinter(getErrorMessage);
+
+export const htmlDiagnosticsExtension = (
+    options: HtmlEditorConfig = {},
+): Extension[] => {
+    const { diagnostics = true, gutter = true, autocomplete = true } = options;
+    const extensions: Extension[] = [];
+
+    if (diagnostics) {
+        extensions.push(linter(validationLinter(htmlLinter)));
+
+        if (gutter) {
+            extensions.push(lintGutter());
+        }
+    }
+
+    if (autocomplete) {
+        extensions.push(
+            autocompletion({
+                override: [htmlCompletionSource],
+            }),
+        );
+    }
+
+    return extensions;
+};

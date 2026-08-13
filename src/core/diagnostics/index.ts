@@ -1,10 +1,18 @@
-export { setValidationState, dispatchValidationState } from './diagnostics';
+export {
+    setValidationState,
+    dispatchValidationState,
+} from './state/diagnosticsState';
+
+export { validationLinter } from './validation/validationLinter';
+export { validationState } from './validation/validationState';
+
+export { createSyntaxTreeLinter } from './utils/syntaxTreeLinter';
+
+export { cssDiagnosticsExtension, cssLinter } from './languages/css';
+export { htmlDiagnosticsExtension, htmlLinter } from './languages/html';
+export { jsDiagnosticsExtension, jsLinter } from './javascript';
 export {
     jsonDiagnosticsExtension,
-    safeJsonCompletion,
     jsonLinter,
+    safeJsonCompletion,
 } from './json';
-export { jsDiagnosticsExtension, jsLinter } from './javascript';
-export { htmlDiagnosticsExtension, htmlLinter } from './html';
-export { cssDiagnosticsExtension, cssLinter } from './css';
-export { validationLinter, validationState } from './validation';

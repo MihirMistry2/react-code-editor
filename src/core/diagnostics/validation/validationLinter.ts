@@ -1,7 +1,7 @@
 import { EditorView } from '@codemirror/view';
 import type { Diagnostic } from '@codemirror/lint';
 
-import { dispatchValidationState } from '../diagnostics';
+import { dispatchValidationState } from '../';
 
 export const validationLinter =
     (linterFn: (view: EditorView) => Diagnostic[]) =>

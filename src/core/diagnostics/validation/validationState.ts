@@ -1,8 +1,8 @@
 import { StateField } from '@codemirror/state';
 
-import type { ValidationState } from '../../../types/';
+import { setValidationState } from '../';
 
-import { setValidationState } from '../diagnostics';
+import type { ValidationState } from '../../../types/';
 
 export const validationState = StateField.define<ValidationState>({
     create() {
