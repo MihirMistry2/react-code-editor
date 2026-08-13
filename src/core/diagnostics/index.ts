@@ -15,4 +15,4 @@ export {
     jsonDiagnosticsExtension,
     jsonLinter,
     safeJsonCompletion,
-} from './json';
+} from './languages/json';
