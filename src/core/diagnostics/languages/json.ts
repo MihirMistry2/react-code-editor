@@ -30,22 +30,29 @@ export const safeJsonCompletion = (schema: Record<string, any>) => {
 
 const getErrorMessage = (view: EditorView, from: number): string => {
     const document = view.state.doc;
-    const charBefore = from > 0 ? document.sliceString(from - 1, from) : '';
-    const charAfter = document.sliceString(from, from + 1);
+    const textBefore = document.sliceString(0, from);
+    const textAfter = document.sliceString(from);
 
-    if (charBefore === ',') {
+    const previousChar = textBefore.match(/\S(?=\s*$)/)?.[0] ?? '';
+    const nextChar = textAfter.match(/\S/)?.[0] ?? '';
+
+    if (previousChar === ',') {
         return 'Trailing comma is not allowed in JSON';
     }
 
-    if (charAfter === '}' || charAfter === ']') {
+    if (nextChar === '}' || nextChar === ']') {
         return 'Missing value before closing bracket';
     }
 
-    if (charAfter === ':' || charBefore === ':') {
+    if (nextChar === ':' || previousChar === ':') {
         return 'Missing value after ":"';
     }
 
-    if (!charAfter) {
+    if (previousChar === '}' || previousChar === ']') {
+        return 'Missing comma between JSON values';
+    }
+
+    if (!nextChar) {
         return 'Unexpected end of JSON input';
     }
 
